@@ -1,3 +1,3 @@
 export const theme = {
-    primaryColor: "green"
+    primaryColor: "#7C4DFF"
 };

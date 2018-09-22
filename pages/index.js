@@ -1,13 +1,20 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import { Button } from "sagan-ui";
+import Sidebar from "components/Sidebar";
 
-const Index = styled.div`
-    background-color: red;
+const Page = styled.div`
+    display: flex;
+    height: 100%;
+`;
+
+const Content = styled.div`
+    flex: 1;
 `;
 
 export default () => (
-    <div>
-        <Button>oi</Button>
-    </div>
+    <Page>
+        <Sidebar />
+        <Content>content</Content>
+    </Page>
 );

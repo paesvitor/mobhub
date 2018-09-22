@@ -1,9 +1,22 @@
 import React from "react";
 import App, { Container } from "next/app";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider, injectGlobal } from "styled-components";
 import { theme } from "resources/theme";
 import withReduxStore from "lib/withReduxStore";
 import { Provider } from "react-redux";
+
+injectGlobal`
+    @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
+    * { padding: 0; margin: 0}
+    html {font-size: 14px}
+    body { font-size: 1rem}
+
+    #__next, html, body {
+        height: 100%;
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+    }
+`;
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }) {
         let pageProps = {};
