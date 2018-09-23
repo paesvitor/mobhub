@@ -63,7 +63,8 @@ export const signin = (email, password) => async dispatch => {
         const auth = await firebaseApp
             .auth()
             .signInWithEmailAndPassword(email, password);
-        return dispatch({ type: SET_USER_TO_STORE, auth });
+        await dispatch({ type: SET_USER_TO_STORE, auth });
+        return true;
     } catch (error) {
         throw new Error(error);
     }

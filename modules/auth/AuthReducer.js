@@ -6,18 +6,18 @@ import auth from "./__mocks/auth.json";
 const env = process.env.NODE_ENV;
 
 const initialState = {
-    auth: env === "development" ? auth : {}
+    auth: null
 };
 
 const AuthReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_USER_TO_STORE:
-            return {
-                ...state,
-                auth: action.auth
-            };
-        default:
-            return state;
+    case SET_USER_TO_STORE:
+        return {
+            ...state,
+            auth: action.auth
+        };
+    default:
+        return state;
     }
 };
 

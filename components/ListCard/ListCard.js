@@ -52,18 +52,17 @@ const ListCardStyled = styled.div`
 
 const ListCard = ({ item, slug, path }) => (
     <ListCardStyled>
-        {console.log(item)}
-        <div className="page-name">
+    <div className="page-name">
             {item.name || item.title}{" "}
             <div className="page-url"> slug: {slug}</div>
-        </div>
+      </div>
         <div className="page-status">
             Published{" "}
             <Link href={`${path || "/"}${slug}`}>
                 <LinkIcon />
-            </Link>
-        </div>
-    </ListCardStyled>
+          </Link>
+      </div>
+  </ListCardStyled>
 );
 
 export default ListCard;

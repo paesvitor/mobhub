@@ -1,9 +1,11 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styled from "styled-components";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import { Button } from "sagan-ui";
-import { Link } from "routes";
+import { Link } from "../../routes";
+import { connect } from "react-redux";
+import { withRouter } from "next/router";
 
 const Dashboard = styled.div`
     display: flex;
@@ -44,26 +46,69 @@ const Content = styled.div`
     }
 `;
 
-export default props => (
-    <Dashboard>
-        <Navbar />
-        <Wrapper>
-            <Sidebar />
-            <Content>
-                <div className="content-header">
-                    <h2>{props.title}</h2>
+class Template extends React.Component {
+    constructor(props) {
+        super(props);
 
-                    {props.action && (
-                        <Link href={props.actionUrl}>
-                            <Button border="pill" size="xs" type="default">
-                                {props.action}
-                            </Button>
-                        </Link>
-                    )}
-                </div>
+        this.state = {
+            loading: true
+        };
+    }
 
-                <div className="content-body">{props.children}</div>
-            </Content>
-        </Wrapper>
-    </Dashboard>
-);
+    checkAuthentication = () => {
+        const { auth } = this.props.authStore;
+
+        if (!auth) {
+            this.props.router.replace("/dashboard/signin");
+        } else {
+            this.setState({ loading: false });
+        }
+    };
+
+    componentWillMount = () => {
+        this.checkAuthentication();
+    };
+
+    render() {
+        const { title, action, actionUrl, children } = this.props;
+        const { loading } = this.state;
+
+        if (loading) {
+            return <div>Loading</div>;
+        }
+
+        return (
+            <Dashboard>
+                <Navbar />
+            <Wrapper>
+                <Sidebar />
+                    <Content>
+                        <div className="content-header">
+                            <h2>{title}</h2>
+
+                            {action && (
+                                <Link route={actionUrl}>
+                                    <Button
+                                        border="pill"
+                                        size="xs"
+                                        type="default"
+                                  >
+                                        {action}
+                                  </Button>
+                            </Link>
+                            )}
+                      </div>
+
+                        <div className="content-body">{children}</div>
+              </Content>
+              </Wrapper>
+          </Dashboard>
+        );
+    }
+}
+
+const mapStateToProps = state => ({
+    authStore: state.auth
+});
+
+export default withRouter(connect(mapStateToProps)(Template));

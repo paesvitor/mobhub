@@ -2,8 +2,10 @@ import React from "react";
 import App, { Container } from "next/app";
 import { ThemeProvider, injectGlobal } from "styled-components";
 import { theme } from "resources/theme";
-import withReduxStore from "lib/withReduxStore";
 import { Provider } from "react-redux";
+import withRedux from "next-redux-wrapper";
+import makeStore from "../store";
+import { PersistGate } from "redux-persist/integration/react";
 
 injectGlobal`
     @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
@@ -64,18 +66,20 @@ class MyApp extends App {
     };
 
     render() {
-        const { Component, pageProps, router, reduxStore } = this.props;
+        const { Component, pageProps, router, store } = this.props;
         const url = this.createUrl(router);
         return (
             <Container>
-                <Provider store={reduxStore}>
-                    <ThemeProvider theme={theme}>
-                        <Component {...pageProps} url={url} />
-                    </ThemeProvider>
-                </Provider>
-            </Container>
+            <Provider store={store}>
+                    <PersistGate persistor={store.__persistor}>
+                        <ThemeProvider theme={theme}>
+                            <Component {...pageProps} url={url} />
+                      </ThemeProvider>
+              </PersistGate>
+              </Provider>
+          </Container>
         );
     }
 }
 
-export default withReduxStore(MyApp);
+export default withRedux(makeStore, { storeKey: "mobhub", debug: true })(MyApp);

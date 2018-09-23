@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { signin as signinAction } from "modules/auth/AuthActions";
 import PropTypes from "prop-types";
 import FormPage from "templates/form-page";
-import { Link } from "routes";
+import { Link, Router } from "routes";
 
 export class SigninScreen extends Component {
     constructor(props) {
@@ -38,7 +38,7 @@ export class SigninScreen extends Component {
 
         try {
             if (this.validateFields()) {
-                (await signin(email, password)) && history.push("/painel");
+                await signin(email, password);
             } else {
                 throw new Error("You must fill in required fields");
             }
@@ -56,44 +56,44 @@ export class SigninScreen extends Component {
             <FormPage>
                 <h2 className="text-center">Signin</h2>
 
-                <form className="auth-form" onSubmit={this.handleSubmit}>
+            <form className="auth-form" onSubmit={this.handleSubmit}>
                     <FormGroup>
-                        <Label htmlFor="email">Email</Label>
-                        <Input
+                <Label htmlFor="email">Email</Label>
+                <Input
                             id="email"
-                            name="email"
+                          name="email"
                             onChange={this.handleInputChange}
-                            type="email"
-                            placeholder="email@email.com"
+                          type="email"
+                          placeholder="email@email.com"
                         />
-                    </FormGroup>
+              </FormGroup>
 
                     <FormGroup>
-                        <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Password</Label>
                         <Input
                             id="password"
                             name="password"
-                            onChange={this.handleInputChange}
-                            type="password"
-                            placeholder="Senha"
-                        />
-                    </FormGroup>
+                        onChange={this.handleInputChange}
+                        type="password"
+                        placeholder="Senha"
+                      />
+              </FormGroup>
 
-                    {error && (
-                        <Alert className="text-center" color="danger">
-                            {error}
-                        </Alert>
+                {error && (
+              <Alert className="text-center" color="danger">
+                      {error}
+                    </Alert>
                     )}
 
                     <Button fluid loading={loadingRequest}>
                         Signin
-                    </Button>
+              </Button>
 
                     <Link route="/dashboard/signup">
-                        Dont have an account? Signup
-                    </Link>
-                </form>
-            </FormPage>
+                        <a>Dont have an account? Signup</a>
+              </Link>
+              </form>
+          </FormPage>
         );
     }
 }
