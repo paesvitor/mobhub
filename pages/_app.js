@@ -13,9 +13,10 @@ injectGlobal`
     a {text-decoration: none}
 
     #__next, html, body {
-        height: 100%;
+        height: 100% !important;
         margin: 0;
         font-family: 'Roboto', sans-serif;
+        padding-right: 0 !important;
     }
 `;
 class MyApp extends App {

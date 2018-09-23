@@ -19,3 +19,4 @@ const databaseRef = firebase.database().ref();
 export const whitelistRef = databaseRef.child("whitelist");
 export const componentsRef = databaseRef.child("components");
 export const pagesRef = databaseRef.child("pages");
+export const postsRef = databaseRef.child("posts");
