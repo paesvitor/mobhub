@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 const Content = styled.div`
     flex: 1;
     padding: 1rem;
-    margin: 2rem;
+    margin: 2rem 5rem;
     display: flex;
     flex-direction: column;
     .content-header {

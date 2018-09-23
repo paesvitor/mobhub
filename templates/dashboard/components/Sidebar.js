@@ -87,9 +87,11 @@ const Sidebar = styled.div`
 const comp = () => (
     <Sidebar>
         <div className="sidebar-header">
-            <Button fluid border="rounded" color="success">
-                add page
-            </Button>
+            <Link href="/add-page">
+                <Button fluid border="rounded" color="success">
+                    add page
+                </Button>
+            </Link>
         </div>
 
         <div className="sidebar-menu">
@@ -102,7 +104,7 @@ const comp = () => (
 
             <hr />
 
-            <Link href="/dashboard/pages">
+            <Link href="/pages">
                 <a className="sidebar-link">
                     <PageIcon />
                     <div className="sidebar-link__label">Pages</div>

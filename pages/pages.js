@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 import Dashboard from "templates/dashboard";
 import styled, { css } from "styled-components";
 import { MdBrightness1 as StatusIcon } from "react-icons/md";
+import { Alert } from "sagan-ui";
+import { pagesRef } from "modules/firebase";
 
 const PageCard = styled.div`
     ${({ theme }) => css`
@@ -12,7 +14,7 @@ const PageCard = styled.div`
         align-items: center;
         border-left: 4px solid ${theme.primaryColor};
         background-color: #f9f9f9;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         cursor: pointer;
         transition: 0.2s all;
 
@@ -39,35 +41,44 @@ const PageCard = styled.div`
     `};
 `;
 
-export default () => (
-    <Dashboard title="Pages">
-        <div>
-            <PageCard>
-                <div className="page-name">Home</div>
+class Pages extends React.Component {
+    constructor(props) {
+        super(props);
 
-                <div className="page-status">
-                    <StatusIcon color="#00e870" />
-                    Published
-                </div>
-            </PageCard>
+        this.state = {
+            pages: {}
+        };
+    }
 
-            <PageCard>
-                <div className="page-name">About</div>
+    static async getInitialProps(ctx) {
+        const pages = await pagesRef
+            .once("value")
+            .then(snapshot => snapshot.val());
+        return {
+            pages
+        };
+    }
 
-                <div className="page-status">
-                    <StatusIcon color="#00e870" />
-                    Published
-                </div>
-            </PageCard>
+    componentWillMount = () => {
+        const { pages } = this.props;
 
-            <PageCard>
-                <div className="page-name">Contact</div>
+        console.log(pages);
+    };
 
-                <div className="page-status">
-                    <StatusIcon color="#00e870" />
-                    Published
-                </div>
-            </PageCard>
-        </div>
-    </Dashboard>
-);
+    render() {
+        const { pages } = this.props;
+
+        return (
+            <Dashboard title="Pages">
+                {Object.keys(pages).map(key => (
+                    <PageCard>
+                        <div className="page-name">{pages[key].name}</div>
+                        <div className="page-status">Published</div>
+                    </PageCard>
+                ))}
+            </Dashboard>
+        );
+    }
+}
+
+export default Pages;
