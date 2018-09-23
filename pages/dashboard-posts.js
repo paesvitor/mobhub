@@ -27,7 +27,12 @@ class DashboardPosts extends React.Component {
                 actionUrl="/dashboard/add-post"
             >
                 {Object.keys(posts).map(key => (
-                    <ListCard item={posts[key]} slug={key} key={key} />
+                    <ListCard
+                        item={posts[key]}
+                        slug={key}
+                        key={key}
+                        path="/p/"
+                    />
                 ))}
             </Dashboard>
         );

@@ -8,4 +8,13 @@ module.exports = routes()
     .add("dashboard-add-post", "/dashboard/add-post", "dashboard-add-post")
     .add("dashboard-posts", "/dashboard/posts", "dashboard-posts")
     // App
-    .add({ name: "single", pattern: "/:url", page: "single" });
+    .add({
+        name: "app-single-page",
+        pattern: "/:slug",
+        page: "app-single-page"
+    })
+    .add({
+        name: "app-single-post",
+        pattern: "/p/:slug",
+        page: "app-single-post"
+    });
