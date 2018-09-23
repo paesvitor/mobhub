@@ -38,14 +38,13 @@ export class SigninScreen extends Component {
 
         try {
             if (this.validateFields()) {
-                await signin(email, password);
+                (await signin(email, password)) &&
+                    Router.push("/dashboard/home");
             } else {
                 throw new Error("You must fill in required fields");
             }
         } catch (error) {
-            setTimeout(() => {
-                this.setState({ error: error.message, loadingRequest: false });
-            }, 4000);
+            this.setState({ error: error.message, loadingRequest: false });
         }
     };
 
@@ -56,44 +55,50 @@ export class SigninScreen extends Component {
             <FormPage>
                 <h2 className="text-center">Signin</h2>
 
-            <form className="auth-form" onSubmit={this.handleSubmit}>
+                <form className="auth-form" onSubmit={this.handleSubmit}>
                     <FormGroup>
-                <Label htmlFor="email">Email</Label>
-                <Input
+                        <Label htmlFor="email">Email</Label>
+                        <Input
                             id="email"
-                          name="email"
+                            name="email"
                             onChange={this.handleInputChange}
                             type="email"
                             placeholder="email@email.com"
                         />
-              </FormGroup>
+                    </FormGroup>
 
                     <FormGroup>
-                <Label htmlFor="password">Password</Label>
+                        <Label htmlFor="password">Password</Label>
                         <Input
                             id="password"
                             name="password"
-                    onChange={this.handleInputChange}
-                    type="password"
-                    placeholder="Senha"
-                  />
-              </FormGroup>
+                            onChange={this.handleInputChange}
+                            type="password"
+                            placeholder="Senha"
+                        />
+                    </FormGroup>
 
-                {error && (
+                    {error && (
                         <Alert className="text-center" color="danger">
                             {error}
-                </Alert>
+                        </Alert>
                     )}
 
-                    <Button fluid loading={loadingRequest}>
+                    <Button size="sm" fluid loading={loadingRequest}>
                         Signin
-              </Button>
+                    </Button>
 
                     <Link route="/dashboard/signup">
-                        <a>Dont have an account? Signup</a>
-              </Link>
-              </form>
-          </FormPage>
+                        <a className="text-center block mt-md">
+                            Dont have an account? Signup
+                        </a>
+                    </Link>
+
+                    <Link route="/">
+                        <a className="text-center block mt-md">Back to home</a>
+                    </Link>
+                </form>
+            </FormPage>
         );
     }
 }

@@ -71,14 +71,14 @@ class MyApp extends App {
         const url = this.createUrl(router);
         return (
             <Container>
-                <Provider store={store}>
+            <Provider store={store}>
                     <PersistGate persistor={store.__persistor}>
                         <ThemeProvider theme={theme}>
                             <Component {...pageProps} url={url} />
-                        </ThemeProvider>
-                    </PersistGate>
-                </Provider>
-            </Container>
+                      </ThemeProvider>
+              </PersistGate>
+              </Provider>
+          </Container>
         );
     }
 }

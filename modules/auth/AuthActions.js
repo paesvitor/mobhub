@@ -1,7 +1,7 @@
 import firebaseApp from "firebase/app";
 import "firebase/auth";
 import { whitelistRef } from "modules/firebase";
-import { SET_USER_TO_STORE } from "./AuthConstants";
+import { SET_USER_TO_STORE, CLEAR_USER_FROM_STORE } from "./AuthConstants";
 
 /**
  * Check if invitation code is valid
@@ -68,4 +68,14 @@ export const signin = (email, password) => async dispatch => {
     } catch (error) {
         throw new Error(error);
     }
+};
+
+/**
+ * Signout user from app
+ * @returns {void}
+ */
+export const signout = () => {
+    return dispatch => {
+        dispatch({ type: CLEAR_USER_FROM_STORE });
+    };
 };

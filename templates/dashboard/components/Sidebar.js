@@ -5,10 +5,13 @@ import {
     MdSettings as ConfigIcon,
     MdLiveHelp as HelpIcon,
     MdBrightness1 as VersionIcon,
-    MdBrightness1 as PanelIcon
+    MdBrightness1 as PanelIcon,
+    MdPowerSettingsNew as LogoutIcon
 } from "react-icons/md";
 import { Button } from "sagan-ui";
-import { Link } from "../../../routes";
+import { Link, Router } from "routes";
+import { signout as signoutAction } from "modules/auth/AuthActions";
+import { connect } from "react-redux";
 
 const Sidebar = styled.div`
     ${({ theme }) => css`
@@ -84,7 +87,9 @@ const Sidebar = styled.div`
     `};
 `;
 
-const comp = () => (
+const handleSignout = () => {};
+
+const comp = props => (
     <Sidebar>
         <div className="sidebar-header">
             <Link route="/dashboard/add-post">
@@ -130,9 +135,20 @@ const comp = () => (
 
             <hr />
 
-            <a className="sidebar-link">
+            {/* <a className="sidebar-link">
                 <HelpIcon />
                 <div className="sidebar-link__label">help</div>
+            </a> */}
+
+            <a
+                className="sidebar-link"
+                onClick={() => {
+                    props.signout();
+                    Router.push("/");
+                }}
+            >
+                <LogoutIcon />
+                <div className="sidebar-link__label">Logout</div>
             </a>
         </div>
 
@@ -145,4 +161,11 @@ const comp = () => (
     </Sidebar>
 );
 
-export default comp;
+const mapDispatchToProps = dispatch => ({
+    signout: () => dispatch(signoutAction())
+});
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(comp);

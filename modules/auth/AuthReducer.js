@@ -1,4 +1,4 @@
-import { SET_USER_TO_STORE } from "./AuthConstants";
+import { SET_USER_TO_STORE, CLEAR_USER_FROM_STORE } from "./AuthConstants";
 
 // Mocks
 import auth from "./__mocks/auth.json";
@@ -11,13 +11,18 @@ const initialState = {
 
 const AuthReducer = (state = initialState, action) => {
     switch (action.type) {
-    case SET_USER_TO_STORE:
-        return {
-            ...state,
-            auth: action.auth
-        };
-    default:
-        return state;
+        case SET_USER_TO_STORE:
+            return {
+                ...state,
+                auth: action.auth
+            };
+        case CLEAR_USER_FROM_STORE:
+            return {
+                ...state,
+                auth: null
+            };
+        default:
+            return state;
     }
 };
 

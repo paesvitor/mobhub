@@ -75,81 +75,83 @@ export class SignupScreen extends Component {
             <FormPage>
                 <h2 className="text-center">Signup</h2>
 
-            <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
-                <Label helper="6 numbers">Invite Code</Label>
+                        <Label helper="6 numbers">Invite Code</Label>
                         <Input
                             name="code"
                             onChange={this.handleInputChange}
                             type="number"
                             placeholder="000000"
-                        error={this.state.codeError}
-                      />
-              </FormGroup>
+                            error={this.state.codeError}
+                        />
+                    </FormGroup>
 
                     <FormGroup>
-                <Label id="email">Email</Label>
-                <Input
-                          name="email"
-                          onChange={this.handleInputChange}
+                        <Label id="email">Email</Label>
+                        <Input
+                            name="email"
+                            onChange={this.handleInputChange}
                             type="text"
-                          placeholder="email@provider.com"
+                            placeholder="email@provider.com"
                             error={this.state.emailError}
                         />
                     </FormGroup>
 
-                <FormGroup>
+                    <FormGroup>
                         <Label helper="Must contain 6 characters">
                             Password
-                  </Label>
-                      <Input
-                          name="password"
+                        </Label>
+                        <Input
+                            name="password"
                             onChange={this.handleInputChange}
                             type="password"
-                          placeholder="******"
-                          error={this.state.passwordError}
+                            placeholder="******"
+                            error={this.state.passwordError}
                         />
                     </FormGroup>
 
                     <FormGroup>
-                <Label>Confirm Password</Label>
-                <Input
+                        <Label>Confirm Password</Label>
+                        <Input
                             name="passwordConfirm"
                             onChange={this.handleInputChange}
-                          type="password"
+                            type="password"
                             placeholder="******"
                             error={this.state.passwordConfirmError}
                         />
-              </FormGroup>
+                    </FormGroup>
 
-                {success && (
-                    <Alert className="text-center" color="info">
+                    {success && (
+                        <Alert className="text-center" color="info">
                             {success}
                             <Link to="/entrar">
                                 You registered successfully. Click here to login
-                </Link>
+                            </Link>
                         </Alert>
                     )}
                     {error && (
-              <Alert className="text-center" color="danger">
-                      {error}
-                    </Alert>
+                        <Alert className="text-center" color="danger">
+                            {error}
+                        </Alert>
                     )}
 
-                <Button
-                fluid
-                size="sm"
-                color="success"
+                    <Button
+                        fluid
+                        size="sm"
+                        color="primary"
                         loading={loadingRequest}
-              >
+                    >
                         Signup
-              </Button>
+                    </Button>
 
                     <Link route="/dashboard/signin">
-                        <a>Alredy registered? Signin</a>
-              </Link>
-              </Form>
-          </FormPage>
+                        <a className="text-center block mt-md">
+                            Alredy registered? Signin
+                        </a>
+                    </Link>
+                </Form>
+            </FormPage>
         );
     }
 }
