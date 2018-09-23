@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
+import { Button } from "sagan-ui";
+import { Link } from "routes";
 
 const Dashboard = styled.div`
     display: flex;
@@ -22,10 +24,14 @@ const Content = styled.div`
     display: flex;
     flex-direction: column;
     .content-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+
         h2 {
-            margin-bottom: 1rem;
             color: #36474f;
             font-weight: 300;
+            flex: 1;
         }
     }
 
@@ -46,6 +52,14 @@ export default props => (
             <Content>
                 <div className="content-header">
                     <h2>{props.title}</h2>
+
+                    {props.action && (
+                        <Link href={props.actionUrl}>
+                            <Button border="pill" size="xs" type="default">
+                                {props.action}
+                            </Button>
+                        </Link>
+                    )}
                 </div>
 
                 <div className="content-body">{props.children}</div>

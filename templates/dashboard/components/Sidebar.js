@@ -8,7 +8,7 @@ import {
     MdBrightness1 as PanelIcon
 } from "react-icons/md";
 import { Button } from "sagan-ui";
-import Link from "next/link";
+import { Link } from "../../../routes";
 
 const Sidebar = styled.div`
     ${({ theme }) => css`
@@ -87,27 +87,34 @@ const Sidebar = styled.div`
 const comp = () => (
     <Sidebar>
         <div className="sidebar-header">
-            <Link href="/add-page">
+            <Link route="/dashboard/add-post">
                 <Button fluid border="rounded" color="success">
-                    add page
+                    add post
                 </Button>
             </Link>
         </div>
 
         <div className="sidebar-menu">
-            <Link href="/dashboard">
+            {/* <Link href="/dashboard/home">
                 <a className="sidebar-link">
                     <PanelIcon />
                     <div className="sidebar-link__label">panel</div>
                 </a>
-            </Link>
+            </Link> */}
 
-            <hr />
+            {/* <hr /> */}
 
-            <Link href="/pages">
+            <Link route="/dashboard/pages">
                 <a className="sidebar-link">
                     <PageIcon />
                     <div className="sidebar-link__label">Pages</div>
+                </a>
+            </Link>
+
+            <Link route="/dashboard/posts">
+                <a className="sidebar-link">
+                    <PageIcon />
+                    <div className="sidebar-link__label">Posts</div>
                 </a>
             </Link>
 

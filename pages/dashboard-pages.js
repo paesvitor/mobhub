@@ -1,14 +1,18 @@
 import React, { Fragment } from "react";
 import Dashboard from "templates/dashboard";
 import styled, { css } from "styled-components";
-import { MdBrightness1 as StatusIcon } from "react-icons/md";
+import {
+    MdBrightness1 as StatusIcon,
+    MdOpenInNew as LinkIcon
+} from "react-icons/md";
 import { Alert } from "sagan-ui";
 import { pagesRef } from "modules/firebase";
+import Link from "next/link";
 
 const PageCard = styled.div`
     ${({ theme }) => css`
         border: 1px solid #e6ecf0;
-        padding: 1.5rem;
+        padding: 1rem;
         border-radius: 3px;
         display: flex;
         align-items: center;
@@ -26,6 +30,11 @@ const PageCard = styled.div`
         .page-name {
             flex: 1;
             font-weight: 500;
+
+            .page-url {
+                padding-top: 0.3rem;
+                font-weight: 300;
+            }
         }
 
         .page-status {
@@ -34,8 +43,12 @@ const PageCard = styled.div`
             font-weight: 300;
 
             svg {
-                padding-right: 1rem;
-                font-size: 0.7rem;
+                padding-left: 1rem;
+                font-size: 1rem;
+
+                &:hover {
+                    color: ${theme.primaryColor};
+                }
             }
         }
     `};
@@ -59,21 +72,27 @@ class Pages extends React.Component {
         };
     }
 
-    componentWillMount = () => {
-        const { pages } = this.props;
-
-        console.log(pages);
-    };
-
     render() {
         const { pages } = this.props;
 
         return (
-            <Dashboard title="Pages">
+            <Dashboard
+                title="Pages"
+                action="Add new page"
+                actionUrl="/dashboard/add-page"
+            >
                 {Object.keys(pages).map(key => (
                     <PageCard>
-                        <div className="page-name">{pages[key].name}</div>
-                        <div className="page-status">Published</div>
+                        <div className="page-name">
+                            {pages[key].name}{" "}
+                            <div className="page-url">/{pages[key].url}</div>
+                        </div>
+                        <div className="page-status">
+                            Published{" "}
+                            <Link href={`/${pages[key].url}`}>
+                                <LinkIcon />
+                            </Link>
+                        </div>
                     </PageCard>
                 ))}
             </Dashboard>

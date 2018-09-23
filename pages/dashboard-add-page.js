@@ -22,9 +22,9 @@ class AddPage extends React.Component {
 
     handleSubmit = async e => {
         e.preventDefault();
-        const { name, slug, title, content } = this.state;
+        const { name, url, title, content } = this.state;
         try {
-            await pagesRef.child(`${slug}`).set({ name, title, content });
+            await pagesRef.child(`${url}`).set({ name, title, content });
         } catch (error) {
             console.log(object);
         }
@@ -46,10 +46,10 @@ class AddPage extends React.Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <Label>Slug</Label>
+                        <Label>Url</Label>
                         <Input
                             type="text"
-                            name="slug"
+                            name="url"
                             onChange={this.handleInputChange}
                         />
                     </FormGroup>
