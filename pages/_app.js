@@ -10,6 +10,7 @@ injectGlobal`
     * { padding: 0; margin: 0}
     html {font-size: 14px}
     body { font-size: 1rem}
+    a {text-decoration: none}
 
     #__next, html, body {
         height: 100%;

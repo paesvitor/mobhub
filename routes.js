@@ -1,6 +1,5 @@
-const routes = require("next-routes")();
+const routes = require("next-routes");
 
-module.exports = routes;
-
-routes.add("about").add("post", "/posts/:id");
-routes.add("painel").add("dashboard", "/painel");
+module.exports = routes()
+    .add("dasboard", "/", "dashboard")
+    .add("pages", "/dashboard/pages", "pages");

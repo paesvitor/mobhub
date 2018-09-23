@@ -4,9 +4,11 @@ import {
     MdPermMedia as MediaIcon,
     MdSettings as ConfigIcon,
     MdLiveHelp as HelpIcon,
-    MdLocalCafe as VersionIcon
+    MdBrightness1 as VersionIcon,
+    MdBrightness1 as PanelIcon
 } from "react-icons/md";
 import { Button } from "sagan-ui";
+import Link from "next/link";
 
 const Sidebar = styled.div`
     ${({ theme }) => css`
@@ -37,7 +39,7 @@ const Sidebar = styled.div`
             align-items: center;
             cursor: pointer;
             text-transform: lowercase;
-            font-weight: 300;
+            font-weight: 400;
             color: #838f94;
 
             .sidebar-link__label {
@@ -48,6 +50,7 @@ const Sidebar = styled.div`
             svg {
                 padding-right: 1rem;
                 font-size: 1.5rem;
+                color: #838f94;
             }
 
             &:hover {
@@ -73,7 +76,9 @@ const Sidebar = styled.div`
             font-weight: 100;
 
             svg {
-                padding-right: 1rem;
+                padding-right: 0.5rem;
+                color: #69f0ae;
+                font-size: 0.5rem;
             }
         }
     `};
@@ -88,10 +93,21 @@ const comp = () => (
         </div>
 
         <div className="sidebar-menu">
-            <a className="sidebar-link">
-                <PageIcon />
-                <div className="sidebar-link__label">Pages</div>
-            </a>
+            <Link href="/dashboard">
+                <a className="sidebar-link">
+                    <PanelIcon />
+                    <div className="sidebar-link__label">panel</div>
+                </a>
+            </Link>
+
+            <hr />
+
+            <Link href="/dashboard/pages">
+                <a className="sidebar-link">
+                    <PageIcon />
+                    <div className="sidebar-link__label">Pages</div>
+                </a>
+            </Link>
 
             <a className="sidebar-link">
                 <MediaIcon />
