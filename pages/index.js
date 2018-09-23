@@ -1,4 +1,44 @@
-import React, { Fragment } from "react";
-// import Dashboard from "templates/dashboard";
+import React, { Component, Fragment } from "react";
+import { postsRef } from "modules/firebase";
+import PostList from "modules/post/containers/post-list";
+import { Button } from "sagan-ui";
+import { Link } from "routes";
 
-export default () => <div>Initial App Page</div>;
+export class Index extends Component {
+    static async getInitialProps({ query }) {
+        try {
+            const posts = await postsRef.once("value").then(snap => snap.val());
+
+            return { posts };
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    render() {
+        const { posts } = this.props;
+
+        return (
+            <Fragment>
+                <div className="text-center p-xl">
+                    <h1 className="mb-md">Blog Teste</h1>
+
+                    <Link route="/dashboard/home">
+                        <Button
+                            style={{ margin: "0 auto" }}
+                            border="pill"
+                            size="xs"
+                            color="secondary"
+                        >
+                            admin area
+                        </Button>
+                    </Link>
+                </div>
+
+                <PostList posts={posts} />
+            </Fragment>
+        );
+    }
+}
+
+export default Index;

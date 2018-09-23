@@ -92,38 +92,38 @@ export class SignupScreen extends Component {
                 <Input
                           name="email"
                           onChange={this.handleInputChange}
-                          type="text"
+                            type="text"
                           placeholder="email@provider.com"
-                          error={this.state.emailError}
+                            error={this.state.emailError}
                         />
-              </FormGroup>
+                    </FormGroup>
 
                 <FormGroup>
                         <Label helper="Must contain 6 characters">
                             Password
                   </Label>
                       <Input
-                    name="password"
-                            onChange={this.handleInputChange}
-                    type="password"
-                    placeholder="******"
-                    error={this.state.passwordError}
-                  />
-                    </FormGroup>
-
-                <FormGroup>
-                        <Label>Confirm Password</Label>
-                      <Input
-                            name="passwordConfirm"
+                          name="password"
                             onChange={this.handleInputChange}
                             type="password"
                           placeholder="******"
-                          error={this.state.passwordConfirmError}
+                          error={this.state.passwordError}
                         />
                     </FormGroup>
 
-                    {success && (
-              <Alert className="text-center" color="info">
+                    <FormGroup>
+                <Label>Confirm Password</Label>
+                <Input
+                            name="passwordConfirm"
+                            onChange={this.handleInputChange}
+                          type="password"
+                            placeholder="******"
+                            error={this.state.passwordConfirmError}
+                        />
+              </FormGroup>
+
+                {success && (
+                    <Alert className="text-center" color="info">
                             {success}
                             <Link to="/entrar">
                                 You registered successfully. Click here to login
@@ -131,15 +131,15 @@ export class SignupScreen extends Component {
                         </Alert>
                     )}
                     {error && (
-                        <Alert className="text-center" color="danger">
+              <Alert className="text-center" color="danger">
                       {error}
                     </Alert>
                     )}
 
                 <Button
-                        fluid
+                fluid
                 size="sm"
-                        color="success"
+                color="success"
                         loading={loadingRequest}
               >
                         Signup

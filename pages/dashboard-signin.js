@@ -63,8 +63,8 @@ export class SigninScreen extends Component {
                             id="email"
                           name="email"
                             onChange={this.handleInputChange}
-                          type="email"
-                          placeholder="email@email.com"
+                            type="email"
+                            placeholder="email@email.com"
                         />
               </FormGroup>
 
@@ -73,16 +73,16 @@ export class SigninScreen extends Component {
                         <Input
                             id="password"
                             name="password"
-                        onChange={this.handleInputChange}
-                        type="password"
-                        placeholder="Senha"
-                      />
+                    onChange={this.handleInputChange}
+                    type="password"
+                    placeholder="Senha"
+                  />
               </FormGroup>
 
                 {error && (
-              <Alert className="text-center" color="danger">
-                      {error}
-                    </Alert>
+                        <Alert className="text-center" color="danger">
+                            {error}
+                </Alert>
                     )}
 
                     <Button fluid loading={loadingRequest}>

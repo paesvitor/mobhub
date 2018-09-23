@@ -3,7 +3,7 @@ import { postsRef } from "modules/firebase";
 import styled, { css } from "styled-components";
 
 const Post = styled.div`
-    background: #ececec;
+    background-color: #e6ecf0;
     height: 100%;
 
     .post-cover {

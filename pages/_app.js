@@ -19,6 +19,7 @@ injectGlobal`
         margin: 0;
         font-family: 'Roboto', sans-serif;
         padding-right: 0 !important;
+        background-color: #e6ecf0;
     }
 `;
 class MyApp extends App {
@@ -70,16 +71,16 @@ class MyApp extends App {
         const url = this.createUrl(router);
         return (
             <Container>
-            <Provider store={store}>
+                <Provider store={store}>
                     <PersistGate persistor={store.__persistor}>
                         <ThemeProvider theme={theme}>
                             <Component {...pageProps} url={url} />
-                      </ThemeProvider>
-              </PersistGate>
-              </Provider>
-          </Container>
+                        </ThemeProvider>
+                    </PersistGate>
+                </Provider>
+            </Container>
         );
     }
 }
 
-export default withRedux(makeStore, { storeKey: "mobhub", debug: true })(MyApp);
+export default withRedux(makeStore)(MyApp);
