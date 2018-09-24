@@ -6,7 +6,9 @@ import {
     MdLiveHelp as HelpIcon,
     MdBrightness1 as VersionIcon,
     MdBrightness1 as PanelIcon,
-    MdPowerSettingsNew as LogoutIcon
+    MdPowerSettingsNew as LogoutIcon,
+    MdSupervisorAccount as UserIcon,
+    MdPerson as ProfileIcon
 } from "react-icons/md";
 import { Button } from "sagan-ui";
 import { Link, Router } from "routes";
@@ -41,7 +43,7 @@ const Sidebar = styled.div`
             display: flex;
             align-items: center;
             cursor: pointer;
-            text-transform: lowercase;
+            text-transform: initial;
             font-weight: 400;
             color: #838f94;
 
@@ -87,13 +89,11 @@ const Sidebar = styled.div`
     `};
 `;
 
-const handleSignout = () => {};
-
 const comp = props => (
     <Sidebar>
         <div className="sidebar-header">
             <Link route="/dashboard/add-post">
-                <Button fluid border="rounded" color="success">
+                <Button fluid size="sm" border="rounded" color="secondary">
                     add post
                 </Button>
             </Link>
@@ -123,10 +123,19 @@ const comp = props => (
                 </a>
             </Link>
 
-            <a className="sidebar-link">
-                <MediaIcon />
-                <div className="sidebar-link__label">Media</div>
-            </a>
+            <Link route="/dashboard/profile">
+                <a className="sidebar-link">
+                    <ProfileIcon />
+                    <div className="sidebar-link__label">My Profile</div>
+                </a>
+            </Link>
+
+            <Link route="/dashboard/users">
+                <a className="sidebar-link">
+                    <UserIcon />
+                    <div className="sidebar-link__label">Users</div>
+                </a>
+            </Link>
 
             <a className="sidebar-link">
                 <ConfigIcon />

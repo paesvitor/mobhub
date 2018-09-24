@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "routes";
 import {
     MdBrightness1 as StatusIcon,
     MdOpenInNew as LinkIcon
@@ -23,17 +23,30 @@ const ListCardStyled = styled.div`
                 0 1px 9px 0px rgba(0, 0, 0, 0.09);
         }
 
-        .page-name {
+        .card-left {
             flex: 1;
-            font-weight: 500;
+            display: flex;
+            align-items: center;
+            img {
+                width: 50px;
+                height: 50px;
+                margin-right: 1rem;
+                border-radius: 50%;
+                border: 1px solid #2175ff;
+            }
 
-            .page-url {
-                padding-top: 0.3rem;
-                font-weight: 300;
+            .card-title {
+                font-weight: 500;
+
+                .card-subtitle {
+                    padding-top: 0.3rem;
+                    font-weight: 300;
+                    font-size: 0.8rem;
+                }
             }
         }
 
-        .page-status {
+        .card-right {
             display: flex;
             align-items: center;
             font-weight: 300;
@@ -50,19 +63,25 @@ const ListCardStyled = styled.div`
     `};
 `;
 
-const ListCard = ({ item, slug, path }) => (
+const ListCard = ({ title, link, thumbnail, subtitle, helper }) => (
     <ListCardStyled>
-    <div className="page-name">
-            {item.name || item.title}{" "}
-            <div className="page-url"> slug: {slug}</div>
-      </div>
-        <div className="page-status">
-            Published{" "}
-            <Link href={`${path || "/"}${slug}`}>
-                <LinkIcon />
-          </Link>
-      </div>
-  </ListCardStyled>
+        <div className="card-left">
+            {thumbnail && <img src={thumbnail} />}
+            <div className="card-title">
+                {title}
+                {subtitle && <div className="card-subtitle">{subtitle}</div>}
+            </div>
+        </div>
+        <div className="card-right">
+            {link && (
+                <Link route={link}>
+                    <LinkIcon />
+                </Link>
+            )}
+
+            {helper && <div className="card-helper">{helper}</div>}
+        </div>
+    </ListCardStyled>
 );
 
 export default ListCard;

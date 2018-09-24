@@ -6,6 +6,8 @@ import { Button } from "sagan-ui";
 import { Link } from "../../routes";
 import { connect } from "react-redux";
 import { withRouter } from "next/router";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 const Dashboard = styled.div`
     display: flex;
@@ -55,18 +57,18 @@ class Template extends React.Component {
         };
     }
 
-    checkAuthentication = () => {
-        const { auth } = this.props.authStore;
-
-        if (!auth) {
-            this.props.router.replace("/dashboard/signin");
-        } else {
-            this.setState({ loading: false });
+    componentWillMount = async () => {
+        try {
+            await firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    this.setState({ loading: false });
+                } else {
+                    this.props.router.replace("/dashboard/signin");
+                }
+            });
+        } catch (error) {
+            console.log(error);
         }
-    };
-
-    componentWillMount = () => {
-        this.checkAuthentication();
     };
 
     render() {
@@ -80,8 +82,8 @@ class Template extends React.Component {
         return (
             <Dashboard>
                 <Navbar />
-            <Wrapper>
-                <Sidebar />
+                <Wrapper>
+                    <Sidebar />
                     <Content>
                         <div className="content-header">
                             <h2>{title}</h2>
@@ -92,17 +94,17 @@ class Template extends React.Component {
                                         border="pill"
                                         size="xs"
                                         type="default"
-                                  >
+                                    >
                                         {action}
-                                  </Button>
-                            </Link>
+                                    </Button>
+                                </Link>
                             )}
-                      </div>
+                        </div>
 
                         <div className="content-body">{children}</div>
-              </Content>
-              </Wrapper>
-          </Dashboard>
+                    </Content>
+                </Wrapper>
+            </Dashboard>
         );
     }
 }

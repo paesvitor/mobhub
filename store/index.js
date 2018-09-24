@@ -27,7 +27,7 @@ const makeStore = (initialState, { isServer, req, debug, storeKey }) => {
         initialState = initialState || { fromServer: "foo" };
 
         return makeConfiguredStore(reducer, initialState);
-    } 
+    }
     // we need it only on client side
     const { persistStore, persistReducer } = require("redux-persist");
     const storage = require("redux-persist/lib/storage").default;
@@ -38,12 +38,11 @@ const makeStore = (initialState, { isServer, req, debug, storeKey }) => {
     };
 
     const persistedReducer = persistReducer(persistConfig, reducer);
-    const store = makeConfiguredStore(persistedReducer, initialState);
-
-    store.__persistor = persistStore(store); // Nasty hack
+    const store = makeConfiguredStore(reducer, initialState);
+    // Nasty hack
+    // store.__persistor = persistStore(store);
 
     return store;
-    
 };
 
 export default makeStore;

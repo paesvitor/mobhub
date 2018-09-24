@@ -60,10 +60,17 @@ export const signup = (code, email, password) => () =>
  */
 export const signin = (email, password) => async dispatch => {
     try {
-        const auth = await firebaseApp
+        const user = await firebaseApp
             .auth()
-            .signInWithEmailAndPassword(email, password);
-        await dispatch({ type: SET_USER_TO_STORE, auth });
+            .setPersistence(firebaseApp.auth.Auth.Persistence.SESSION)
+            .then(res => {
+                console.log("auth persised");
+                return firebaseApp
+                    .auth()
+                    .signInWithEmailAndPassword(email, password);
+            });
+
+        console.log(user);
         return true;
     } catch (error) {
         throw new Error(error);
@@ -75,7 +82,5 @@ export const signin = (email, password) => async dispatch => {
  * @returns {void}
  */
 export const signout = () => {
-    return dispatch => {
-        dispatch({ type: CLEAR_USER_FROM_STORE });
-    };
+    return firebaseApp.auth().signOut();
 };
