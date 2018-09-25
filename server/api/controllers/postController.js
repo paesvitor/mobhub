@@ -6,15 +6,18 @@ const postController = {};
 postController.create = (req, res) => {
     const { title, text, creator } = req.body;
 
-    const _post = new Post({
+    console.log(req);
+
+    console.log(title);
+
+    const post = new Post({
         _id: new mongoose.Types.ObjectId(),
         title,
         text,
         creator
     });
 
-    _post
-        .save()
+    post.save()
         .then(result => res.status(200).json(result))
         .catch(error => res.status(500).json(error));
 };

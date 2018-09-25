@@ -33,13 +33,17 @@ module.exports = {
             const data = await user.save();
 
             // Generate user token
-            const token = signToken(user);
+            const auth_token = signToken(user);
 
-            res.status(200).json({ token });
+            res.status(200).json({ auth_token });
         } catch (error) {
             res.status(500).json(error);
         }
     },
 
-    signin: async (req, res, next) => {}
+    signin: async (req, res, next) => {
+        console.log(req.user);
+        const auth_token = signToken(req.user);
+        res.status(200).json({ auth_token });
+    }
 };
