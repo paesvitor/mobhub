@@ -21,15 +21,16 @@ export class DashboardUsers extends Component {
         return (
             <Dashboard
                 title="Users"
-            action="Add new user"
+                action="Add new user"
                 actionUrl="/dashboard/add-page"
-          >
-            {users ? (
+            >
+                {users ? (
                     Object.keys(users).map(key => {
                         const user = users[key];
 
                         return (
                             <ListCard
+                                key={key}
                                 thumbnail="https://opstatics.com/store/20170907/assets/images/user/user-info/avatar-default.png"
                                 title={user.email}
                                 subtitle="created by: 14/09/98"
@@ -40,13 +41,13 @@ export class DashboardUsers extends Component {
                                         <div>Awaiting Registration</div>
                                     )
                                 }
-                          />
+                            />
                         );
                     })
                 ) : (
                     <EmptyList>No users created. Add new user.</EmptyList>
                 )}
-          </Dashboard>
+            </Dashboard>
         );
     }
 }

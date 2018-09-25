@@ -43,36 +43,40 @@ class PostListContainer extends React.Component {
 
         return (
             <PostList>
-                {Object.keys(posts).map(key => {
-                    const post = posts[key];
+                {posts
+                    ? Object.keys(posts).map(key => {
+                          const post = posts[key];
 
-                    return (
-                        <article key={key}>
-                            <img src={post.thumbnail} alt={post.title} />
+                          return (
+                              <article key={key}>
+                                  <img src={post.thumbnail} alt={post.title} />
 
-                            <div className="post-right">
-                                <h2 className="post-title">{post.title}</h2>
-                                <p className="post-content">
-                                    {post.content.replace(
-                                        /<\/?[^>]+(>|$)/g,
-                                        ""
-                                    )}
-                              </p>
+                                  <div className="post-right">
+                                      <h2 className="post-title">
+                                          {post.title}
+                                      </h2>
+                                      <p className="post-content">
+                                          {post.content.replace(
+                                              /<\/?[^>]+(>|$)/g,
+                                              ""
+                                          )}
+                                      </p>
 
-                                <Link route={`/p/${key}`}>
-                                    <Button
-                                        size="xs"
-                                        border="pill"
-                                        className="mt-xl"
-                                  >
-                                        View Post
-                                  </Button>
-                              </Link>
-                          </div>
-                      </article>
-                    );
-                })}
-          </PostList>
+                                      <Link route={`/p/${key}`}>
+                                          <Button
+                                              size="xs"
+                                              border="pill"
+                                              className="mt-xl"
+                                          >
+                                              View Post
+                                          </Button>
+                                      </Link>
+                                  </div>
+                              </article>
+                          );
+                      })
+                    : "No posts"}
+            </PostList>
         );
     }
 }

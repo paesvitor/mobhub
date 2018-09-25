@@ -113,7 +113,7 @@ const ListCard = ({
         </div>
 
         <div className="card-options">
-            {deleteAction && <DeleteIcon onClick={() => deleteAction()} />}
+            {deleteAction && <DeleteIcon onClick={deleteAction} />}
             {editAction && <EditIcon onClick={editAction} />}
         </div>
 

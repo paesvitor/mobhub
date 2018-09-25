@@ -9,6 +9,7 @@ import { withRouter } from "next/router";
 import firebase from "firebase/app";
 import "firebase/auth";
 import PageLoader from "components/page-loader";
+import ProgressBar from "components/progress-bar";
 
 const Dashboard = styled.div`
     display: flex;
@@ -84,6 +85,7 @@ class Template extends React.Component {
         return (
             <Dashboard>
                 <Navbar />
+                <ProgressBar />
                 <Wrapper>
                     <Sidebar />
                     <Content>

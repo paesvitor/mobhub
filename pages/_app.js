@@ -5,7 +5,7 @@ import { theme } from "resources/theme";
 import { Provider } from "react-redux";
 import withRedux from "next-redux-wrapper";
 import makeStore from "../store";
-import { PersistGate } from "redux-persist/integration/react";
+import { Router } from "../routes";
 
 injectGlobal`
     @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
@@ -75,12 +75,12 @@ class MyApp extends App {
         const url = this.createUrl(router);
         return (
             <Container>
-            <Provider store={store}>
+                <Provider store={store}>
                     <ThemeProvider theme={theme}>
                         <Component {...pageProps} url={url} />
-              </ThemeProvider>
-              </Provider>
-          </Container>
+                    </ThemeProvider>
+                </Provider>
+            </Container>
         );
     }
 }
