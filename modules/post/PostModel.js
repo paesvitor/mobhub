@@ -1,7 +1,16 @@
 import firebase from "firebase";
 import "firebase/auth";
 
-const user = firebase.auth().currentUser;
+let user;
+
+firebase.auth().onAuthStateChanged(function(currentUser) {
+    if (currentUser) {
+        user = currentUser;
+    } else {
+        user = firebase.auth().currentUser;
+    }
+});
+
 const uuidv1 = require("uuid/v1");
 
 const placeholderThumbnail =

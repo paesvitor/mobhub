@@ -1,7 +1,8 @@
 import { Link } from "routes";
 import {
-    MdBrightness1 as StatusIcon,
-    MdOpenInNew as LinkIcon
+    MdOpenInNew as LinkIcon,
+    MdDelete as DeleteIcon,
+    MdModeEdit as EditIcon
 } from "react-icons/md";
 import styled, { css } from "styled-components";
 
@@ -18,9 +19,39 @@ const ListCardStyled = styled.div`
         cursor: pointer;
         transition: 0.2s all;
 
+        svg {
+            font-size: 1.2rem;
+
+            &:hover {
+                color: ${theme.primaryColor};
+            }
+        }
+
         &:hover {
             box-shadow: 0 1px 10px 4px rgba(0, 0, 0, 0),
                 0 1px 9px 0px rgba(0, 0, 0, 0.09);
+
+            .card-options {
+                display: block;
+            }
+        }
+
+        @keyframes show {
+                from {
+                    opacity: 0;
+                    margin-right: -20px
+                }
+
+                to {
+                    opacity: 1
+                    margin-right: 0px
+                }
+            }
+
+        .card-options {            
+            display: none;
+            animation: show .2s linear;
+            svg {padding-left: 1rem}
         }
 
         .card-left {
@@ -53,42 +84,49 @@ const ListCardStyled = styled.div`
         }
 
         .card-right {
+            margin-left: 1rem;
             display: flex;
             align-items: center;
             font-weight: 300;
-
-            svg {
-                padding-left: 1rem;
-                font-size: 1rem;
-
-                &:hover {
-                    color: ${theme.primaryColor};
-                }
-            }
         }
     `};
 `;
 
-const ListCard = ({ title, preTitle, link, thumbnail, subtitle, helper }) => (
+const ListCard = ({
+    title,
+    preTitle,
+    link,
+    thumbnail,
+    subtitle,
+    helper,
+    deleteAction,
+    editAction
+}) => (
     <ListCardStyled>
         <div className="card-left">
-        {thumbnail && <img src={thumbnail} />}
-        <div className="card-title">
-            <div className="card-title-pre">{preTitle}</div>
+            {thumbnail && <img src={thumbnail} />}
+            <div className="card-title">
+                <div className="card-title-pre">{preTitle}</div>
                 <div>{title}</div>
                 {subtitle && <div className="card-subtitle">{subtitle}</div>}
-          </div>
-      </div>
+            </div>
+        </div>
+
+        <div className="card-options">
+            {deleteAction && <DeleteIcon onClick={() => deleteAction()} />}
+            {editAction && <EditIcon onClick={editAction} />}
+        </div>
+
         <div className="card-right">
             {link && (
                 <Link route={link}>
                     <LinkIcon />
-            </Link>
+                </Link>
             )}
 
             {helper && <div className="card-helper">{helper}</div>}
-      </div>
-  </ListCardStyled>
+        </div>
+    </ListCardStyled>
 );
 
 export default ListCard;
