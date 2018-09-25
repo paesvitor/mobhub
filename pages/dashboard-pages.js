@@ -4,9 +4,7 @@ import {
     MdBrightness1 as StatusIcon,
     MdOpenInNew as LinkIcon
 } from "react-icons/md";
-import { Button } from "sagan-ui";
 import { pagesRef } from "modules/firebase";
-import Link from "next/link";
 import ListCard from "components/ListCard";
 import EmptyList from "components/empty-list";
 
@@ -34,7 +32,9 @@ class Pages extends React.Component {
                         <ListCard item={pages[key]} key={key} slug={key} />
                     ))
                 ) : (
-                    <EmptyList>No pages created. Add new page</EmptyList>
+                    <EmptyList action="/dashboard/add-page">
+                        No pages created. Add new page
+                    </EmptyList>
                 )}
             </Dashboard>
         );

@@ -64,13 +64,10 @@ export const signin = (email, password) => async dispatch => {
             .auth()
             .setPersistence(firebaseApp.auth.Auth.Persistence.SESSION)
             .then(res => {
-                console.log("auth persised");
                 return firebaseApp
                     .auth()
                     .signInWithEmailAndPassword(email, password);
             });
-
-        console.log(user);
         return true;
     } catch (error) {
         throw new Error(error);

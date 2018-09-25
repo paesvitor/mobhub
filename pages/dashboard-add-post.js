@@ -1,34 +1,21 @@
 import React from "react";
 import Dashboard from "templates/dashboard";
 import { FormGroup, Input, Label, Form, Button, Alert } from "sagan-ui";
-import { postsRef } from "modules/firebase";
 import Swal from "sweetalert2";
 import { Router } from "../routes";
+import RichTextEditor from "react-rte";
+import { createPost } from "modules/post/PostActions";
 class DashboardAddPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             error: null,
-            loadingRequest: false
+            loadingRequest: false,
+            editorContent: RichTextEditor.createEmptyValue()
         };
     }
 
-    validateEmptyFields = () => {
-        const { title, slug, content, thumbnail } = this.state;
-        const fields = { title, slug, content, thumbnail };
-        let hasErrors = false;
-        Object.keys(fields).map(key => {
-            if (!fields[key]) {
-                hasErrors = true;
-                const errorField = `${key}Error`;
-                this.setState({ [errorField]: "This field is required" });
-            }
-        });
-        return !hasErrors;
-    };
-
-    // Handlers
     handleInputChange = e => {
         const {
             target: { value, name }
@@ -37,15 +24,19 @@ class DashboardAddPage extends React.Component {
         this.setState({ [name]: value, [errorField]: null });
     };
 
+    handleEditorChange = editorContent => {
+        this.setState({ editorContent });
+    };
+
     handleSubmit = async e => {
         e.preventDefault();
         this.setState({ error: null, loadingRequest: true });
-        const { signup } = this.props;
-        const { title, slug, content, thumbnail } = this.state;
+        const { title, slug, thumbnail, editorContent } = this.state;
+        const content = editorContent.value.toString("html");
+        const post = { title, slug, thumbnail, content };
 
         try {
-            this.validateEmptyFields() &&
-                postsRef.child(`${slug}`).set({ title, content, thumbnail }) &&
+            createPost(post) &&
                 Swal({
                     title: "Success!",
                     type: "success",
@@ -71,6 +62,7 @@ class DashboardAddPage extends React.Component {
                     <FormGroup>
                         <Label>Title</Label>
                         <Input
+                            autoComplete="off"
                             type="text"
                             name="title"
                             onChange={this.handleInputChange}
@@ -79,10 +71,15 @@ class DashboardAddPage extends React.Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <Label helper="Your post ID and friendly URL. Use dashes to separte words [eg: my-post]">
+                        <Label
+                            helper="Your post ID and friendly URL. 
+                            Use dashes to separte words [eg: my-post]. 
+                            Leave it blank to auto generate slug"
+                        >
                             Slug
                         </Label>
                         <Input
+                            autoComplete="off"
                             type="text"
                             name="slug"
                             onChange={this.handleInputChange}
@@ -91,22 +88,20 @@ class DashboardAddPage extends React.Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <Label>Content</Label>
-                        <Input
-                            type="text"
-                            name="content"
-                            onChange={this.handleInputChange}
-                            error={this.state.contentError}
-                        />
-                    </FormGroup>
-
-                    <FormGroup>
                         <Label helper="Paste an image URL">Thumbnail</Label>
                         <Input
+                            autoComplete="off"
                             type="text"
                             name="thumbnail"
                             onChange={this.handleInputChange}
                             error={this.state.thumbnailError}
+                        />
+                    </FormGroup>
+
+                    <FormGroup>
+                        <RichTextEditor
+                            value={this.state.value}
+                            onChange={this.handleEditorChange}
                         />
                     </FormGroup>
 

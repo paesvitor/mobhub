@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { withRouter } from "next/router";
 import firebase from "firebase/app";
 import "firebase/auth";
+import PageLoader from "components/page-loader";
 
 const Dashboard = styled.div`
     display: flex;
@@ -27,6 +28,7 @@ const Content = styled.div`
     margin: 2rem 5rem;
     display: flex;
     flex-direction: column;
+    overflow: scroll;
     .content-header {
         display: flex;
         align-items: center;
@@ -76,7 +78,7 @@ class Template extends React.Component {
         const { loading } = this.state;
 
         if (loading) {
-            return <div>Loading</div>;
+            return <PageLoader />;
         }
 
         return (

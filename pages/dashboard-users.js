@@ -18,9 +18,6 @@ export class DashboardUsers extends Component {
 
     render() {
         const { users } = this.props;
-
-        console.log(users);
-
         return (
             <Dashboard
                 title="Users"

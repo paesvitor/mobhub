@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "routes";
 import {
     MdBrightness1 as StatusIcon,
     MdOpenInNew as LinkIcon
@@ -6,7 +6,7 @@ import {
 import styled, { css } from "styled-components";
 
 const EmptyList = styled.div`
-    ${({ theme }) => css`
+    ${({ theme, action }) => css`
         display: flex;
         align-items: center;
         justify-content: center;
@@ -14,9 +14,12 @@ const EmptyList = styled.div`
         border: 1px dashed #bfd7ff;
         color: #94bbfd;
         font-weight: bold;
+        cursor: ${action ? "pointer" : "default"};
     `};
 `;
 
-const EmptyListComponent = props => <EmptyList>{props.children}</EmptyList>;
+const EmptyListComponent = props => (
+    <EmptyList {...props}>{props.children}</EmptyList>
+);
 
 export default EmptyListComponent;

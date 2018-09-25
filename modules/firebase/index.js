@@ -16,6 +16,7 @@ if (!firebase.apps.length) {
 }
 const databaseRef = firebase.database().ref();
 
+export const currentUser = firebase.auth().currentUser;
 export const whitelistRef = databaseRef.child("whitelist");
 export const componentsRef = databaseRef.child("components");
 export const pagesRef = databaseRef.child("pages");

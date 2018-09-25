@@ -21,6 +21,10 @@ injectGlobal`
         padding-right: 0 !important;
         background-color: #e6ecf0;
     }
+
+    .DraftEditor-root {
+        height: 140px !important;
+    }
 `;
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }) {

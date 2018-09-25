@@ -8,9 +8,6 @@ export class AppSinglePage extends Component {
                 .child(`${query.url}`)
                 .once("value")
                 .then(snap => snap.val());
-
-            console.log(page);
-
             return { page };
         } catch (error) {
             console.log(error);
@@ -21,7 +18,6 @@ export class AppSinglePage extends Component {
         return (
             <div>
                 <div>page</div>
-                {console.log(this.props)}
             </div>
         );
     }

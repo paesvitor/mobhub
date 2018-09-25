@@ -38,6 +38,12 @@ const ListCardStyled = styled.div`
             .card-title {
                 font-weight: 500;
 
+                .card-title-pre {
+                    font-size: 0.7rem;
+                    font-weight: 300;
+                    margin-bottom: 0.3rem;
+                }
+
                 .card-subtitle {
                     padding-top: 0.3rem;
                     font-weight: 300;
@@ -63,12 +69,13 @@ const ListCardStyled = styled.div`
     `};
 `;
 
-const ListCard = ({ title, link, thumbnail, subtitle, helper }) => (
+const ListCard = ({ title, preTitle, link, thumbnail, subtitle, helper }) => (
     <ListCardStyled>
         <div className="card-left">
             {thumbnail && <img src={thumbnail} />}
             <div className="card-title">
-                {title}
+                <div className="card-title-pre">{preTitle}</div>
+                <div>{title}</div>
                 {subtitle && <div className="card-subtitle">{subtitle}</div>}
             </div>
         </div>

@@ -3,15 +3,16 @@ import { postsRef } from "modules/firebase";
 import PostList from "modules/post/containers/post-list";
 import { Button } from "sagan-ui";
 import { Link } from "routes";
+import PageLoader from "components/page-loader";
 
 export class Index extends Component {
-    static async getInitialProps({ query }) {
+    static async getInitialProps() {
         try {
             const posts = await postsRef.once("value").then(snap => snap.val());
 
             return { posts };
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 
@@ -20,23 +21,23 @@ export class Index extends Component {
 
         return (
             <Fragment>
-            <div className="text-center p-xl">
+                <div className="text-center p-xl">
                     <h1 className="mb-md">Blog Teste</h1>
 
-                <Link route="/dashboard/home">
-                      <Button
-                          style={{ margin: "0 auto" }}
-                          border="pill"
-                          size="xs"
+                    <Link route="/dashboard/home">
+                        <Button
+                            style={{ margin: "0 auto" }}
+                            border="pill"
+                            size="xs"
                             color="secondary"
                         >
                             admin area
                         </Button>
                     </Link>
-              </div>
+                </div>
 
                 <PostList posts={posts} />
-          </Fragment>
+            </Fragment>
         );
     }
 }

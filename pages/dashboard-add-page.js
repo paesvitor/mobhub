@@ -39,6 +39,7 @@ class AddPage extends React.Component {
                     <FormGroup>
                         <Label helper="required">Page name</Label>
                         <Input
+                            autocomplete="off"
                             type="text"
                             name="name"
                             onChange={this.handleInputChange}
@@ -74,7 +75,9 @@ class AddPage extends React.Component {
 
                     {error && <Alert color="danger">error: {error}</Alert>}
 
-                    <Button border="rounded">Add Page</Button>
+                    <Button size="sm" border="rounded">
+                        Add Page
+                    </Button>
                 </Form>
             </Dashboard>
         );

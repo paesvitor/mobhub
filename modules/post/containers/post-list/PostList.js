@@ -47,28 +47,32 @@ class PostListContainer extends React.Component {
                     const post = posts[key];
 
                     return (
-                        <article>
+                        <article key={key}>
                             <img src={post.thumbnail} alt={post.title} />
 
                             <div className="post-right">
-                            <h2 className="post-title">{post.title}</h2>
-
-                                <p className="post-content">{post.content}</p>
+                                <h2 className="post-title">{post.title}</h2>
+                                <p className="post-content">
+                                    {post.content.replace(
+                                        /<\/?[^>]+(>|$)/g,
+                                        ""
+                                    )}
+                                </p>
 
                                 <Link route={`/p/${key}`}>
                                     <Button
                                         size="xs"
                                         border="pill"
                                         className="mt-xl"
-                                  >
+                                    >
                                         View Post
-                                  </Button>
-                              </Link>
-                          </div>
-                      </article>
+                                    </Button>
+                                </Link>
+                            </div>
+                        </article>
                     );
                 })}
-          </PostList>
+            </PostList>
         );
     }
 }
