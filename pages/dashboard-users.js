@@ -21,10 +21,10 @@ export class DashboardUsers extends Component {
         return (
             <Dashboard
                 title="Users"
-                action="Add new user"
+            action="Add new user"
                 actionUrl="/dashboard/add-page"
-            >
-                {users ? (
+          >
+            {users ? (
                     Object.keys(users).map(key => {
                         const user = users[key];
 
@@ -40,13 +40,13 @@ export class DashboardUsers extends Component {
                                         <div>Awaiting Registration</div>
                                     )
                                 }
-                            />
+                          />
                         );
                     })
                 ) : (
                     <EmptyList>No users created. Add new user.</EmptyList>
                 )}
-            </Dashboard>
+          </Dashboard>
         );
     }
 }

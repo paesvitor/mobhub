@@ -100,15 +100,6 @@ const comp = props => (
         </div>
 
         <div className="sidebar-menu">
-            {/* <Link href="/dashboard/home">
-                <a className="sidebar-link">
-                    <PanelIcon />
-                    <div className="sidebar-link__label">panel</div>
-                </a>
-            </Link> */}
-
-            {/* <hr /> */}
-
             <Link route="/dashboard/pages">
                 <a className="sidebar-link">
                     <PageIcon />
@@ -143,11 +134,6 @@ const comp = props => (
             </a>
 
             <hr />
-
-            {/* <a className="sidebar-link">
-                <HelpIcon />
-                <div className="sidebar-link__label">help</div>
-            </a> */}
 
             <a
                 className="sidebar-link"

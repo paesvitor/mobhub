@@ -72,23 +72,23 @@ const ListCardStyled = styled.div`
 const ListCard = ({ title, preTitle, link, thumbnail, subtitle, helper }) => (
     <ListCardStyled>
         <div className="card-left">
-            {thumbnail && <img src={thumbnail} />}
-            <div className="card-title">
-                <div className="card-title-pre">{preTitle}</div>
+        {thumbnail && <img src={thumbnail} />}
+        <div className="card-title">
+            <div className="card-title-pre">{preTitle}</div>
                 <div>{title}</div>
                 {subtitle && <div className="card-subtitle">{subtitle}</div>}
-            </div>
-        </div>
+          </div>
+      </div>
         <div className="card-right">
             {link && (
                 <Link route={link}>
                     <LinkIcon />
-                </Link>
+            </Link>
             )}
 
             {helper && <div className="card-helper">{helper}</div>}
-        </div>
-    </ListCardStyled>
+      </div>
+  </ListCardStyled>
 );
 
 export default ListCard;

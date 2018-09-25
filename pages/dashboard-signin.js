@@ -53,9 +53,10 @@ export class SigninScreen extends Component {
 
         return (
             <FormPage>
-                <h2 className="text-center">Signin</h2>
-
                 <form className="auth-form" onSubmit={this.handleSubmit}>
+                    <h2 className="text-center">Signin</h2>
+                    <hr />
+
                     <FormGroup>
                         <Label htmlFor="email">Email</Label>
                         <Input
@@ -88,14 +89,12 @@ export class SigninScreen extends Component {
                         Signin
                     </Button>
 
-                    <Link route="/dashboard/signup">
-                        <a className="text-center block mt-md">
-                            Dont have an account? Signup
-                        </a>
-                    </Link>
+                    <hr />
 
-                    <Link route="/">
-                        <a className="text-center block mt-md">Back to home</a>
+                    <Link route="/dashboard/signup">
+                        <a className="form-link">
+                            Don't have an account? <span>Signup</span>
+                        </a>
                     </Link>
                 </form>
             </FormPage>

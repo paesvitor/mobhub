@@ -73,9 +73,9 @@ export class SignupScreen extends Component {
 
         return (
             <FormPage>
-                <h2 className="text-center">Signup</h2>
-
                 <Form onSubmit={this.handleSubmit}>
+                    <h2 className="text-center">Signup</h2>
+                    <hr />
                     <FormGroup>
                         <Label helper="6 numbers">Invite Code</Label>
                         <Input
@@ -145,9 +145,11 @@ export class SignupScreen extends Component {
                         Signup
                     </Button>
 
+                    <hr />
+
                     <Link route="/dashboard/signin">
-                        <a className="text-center block mt-md">
-                            Alredy registered? Signin
+                        <a className="form-link">
+                            Already registered? <span>Signin</span>
                         </a>
                     </Link>
                 </Form>

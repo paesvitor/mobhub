@@ -63,11 +63,9 @@ export const signin = (email, password) => async dispatch => {
         const user = await firebaseApp
             .auth()
             .setPersistence(firebaseApp.auth.Auth.Persistence.SESSION)
-            .then(res => {
-                return firebaseApp
-                    .auth()
-                    .signInWithEmailAndPassword(email, password);
-            });
+            .then(res => firebaseApp
+                .auth()
+                .signInWithEmailAndPassword(email, password));
         return true;
     } catch (error) {
         throw new Error(error);
@@ -78,6 +76,4 @@ export const signin = (email, password) => async dispatch => {
  * Signout user from app
  * @returns {void}
  */
-export const signout = () => {
-    return firebaseApp.auth().signOut();
-};
+export const signout = () => firebaseApp.auth().signOut();

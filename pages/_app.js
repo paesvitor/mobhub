@@ -75,12 +75,12 @@ class MyApp extends App {
         const url = this.createUrl(router);
         return (
             <Container>
-                <Provider store={store}>
+            <Provider store={store}>
                     <ThemeProvider theme={theme}>
                         <Component {...pageProps} url={url} />
-                    </ThemeProvider>
-                </Provider>
-            </Container>
+              </ThemeProvider>
+              </Provider>
+          </Container>
         );
     }
 }

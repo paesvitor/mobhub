@@ -18,7 +18,7 @@ export class AppSinglePage extends Component {
         return (
             <div>
                 <div>page</div>
-            </div>
+          </div>
         );
     }
 }

@@ -21,23 +21,23 @@ export class Index extends Component {
 
         return (
             <Fragment>
-                <div className="text-center p-xl">
+            <div className="text-center p-xl">
                     <h1 className="mb-md">Blog Teste</h1>
 
-                    <Link route="/dashboard/home">
-                        <Button
-                            style={{ margin: "0 auto" }}
-                            border="pill"
-                            size="xs"
+                <Link route="/dashboard/home">
+                      <Button
+                          style={{ margin: "0 auto" }}
+                          border="pill"
+                          size="xs"
                             color="secondary"
                         >
                             admin area
                         </Button>
                     </Link>
-                </div>
+              </div>
 
                 <PostList posts={posts} />
-            </Fragment>
+          </Fragment>
         );
     }
 }

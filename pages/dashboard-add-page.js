@@ -36,50 +36,50 @@ class AddPage extends React.Component {
         return (
             <Dashboard title="Add new page">
                 <Form onSubmit={this.handleSubmit}>
-                    <FormGroup>
+                <FormGroup>
                         <Label helper="required">Page name</Label>
-                        <Input
-                            autocomplete="off"
-                            type="text"
-                            name="name"
-                            onChange={this.handleInputChange}
+                    <Input
+                          autocomplete="off"
+                          type="text"
+                          name="name"
+                          onChange={this.handleInputChange}
                         />
-                    </FormGroup>
+                  </FormGroup>
 
-                    <FormGroup>
+                <FormGroup>
                         <Label>Url</Label>
                         <Input
-                            type="text"
-                            name="url"
+                    type="text"
+                    name="url"
                             onChange={this.handleInputChange}
-                        />
+                  />
                     </FormGroup>
 
                     <FormGroup>
                         <Label>Title</Label>
                         <Input
-                            type="text"
+                        type="text"
                             name="title"
-                            onChange={this.handleInputChange}
-                        />
-                    </FormGroup>
+                        onChange={this.handleInputChange}
+                      />
+                  </FormGroup>
 
                     <FormGroup>
-                        <Label>Content</Label>
+                    <Label>Content</Label>
                         <Input
                             type="text"
                             name="content"
                             onChange={this.handleInputChange}
-                        />
-                    </FormGroup>
+                  />
+                  </FormGroup>
 
                     {error && <Alert color="danger">error: {error}</Alert>}
 
                     <Button size="sm" border="rounded">
                         Add Page
-                    </Button>
-                </Form>
-            </Dashboard>
+                  </Button>
+              </Form>
+          </Dashboard>
         );
     }
 }

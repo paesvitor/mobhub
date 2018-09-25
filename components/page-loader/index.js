@@ -16,7 +16,7 @@ const PageLoaderStyled = styled.div`
 const PageLoader = () => (
     <PageLoaderStyled>
         <img src={loader} alt="" />
-    </PageLoaderStyled>
+  </PageLoaderStyled>
 );
 
 export default PageLoader;

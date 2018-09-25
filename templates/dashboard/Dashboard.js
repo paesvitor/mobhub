@@ -25,7 +25,7 @@ const Wrapper = styled.div`
 const Content = styled.div`
     flex: 1;
     padding: 1rem;
-    margin: 2rem 5rem;
+    margin: 1rem;
     display: flex;
     flex-direction: column;
     overflow: scroll;
@@ -36,7 +36,7 @@ const Content = styled.div`
 
         h2 {
             color: #36474f;
-            font-weight: 300;
+            font-weight: 500;
             flex: 1;
         }
     }

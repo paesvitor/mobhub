@@ -23,10 +23,10 @@ class Pages extends React.Component {
 
         return (
             <Dashboard
-                title="Pages"
+            title="Pages"
                 action="Add new page"
                 actionUrl="/dashboard/add-page"
-            >
+          >
                 {pages ? (
                     Object.keys(pages).map(key => (
                         <ListCard item={pages[key]} key={key} slug={key} />
@@ -34,9 +34,9 @@ class Pages extends React.Component {
                 ) : (
                     <EmptyList action="/dashboard/add-page">
                         No pages created. Add new page
-                    </EmptyList>
+                  </EmptyList>
                 )}
-            </Dashboard>
+          </Dashboard>
         );
     }
 }

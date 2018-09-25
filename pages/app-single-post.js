@@ -57,18 +57,18 @@ export class AppSinglePost extends Component {
 
         return (
             <Post>
-                <div
-                    className="post-cover"
+            <div
+                className="post-cover"
                     style={{ backgroundImage: `url(${post.thumbnail})` }}
-                >
+              >
                     <div className="post-cover__title">{post.title}</div>
-                </div>
+              </div>
 
                 <div
                     className="post-content"
                     dangerouslySetInnerHTML={{ __html: post.content }}
-                />
-            </Post>
+              />
+          </Post>
         );
     }
 }

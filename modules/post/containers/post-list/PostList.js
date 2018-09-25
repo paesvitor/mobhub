@@ -57,22 +57,22 @@ class PostListContainer extends React.Component {
                                         /<\/?[^>]+(>|$)/g,
                                         ""
                                     )}
-                                </p>
+                              </p>
 
                                 <Link route={`/p/${key}`}>
                                     <Button
                                         size="xs"
                                         border="pill"
                                         className="mt-xl"
-                                    >
+                                  >
                                         View Post
-                                    </Button>
-                                </Link>
-                            </div>
-                        </article>
+                                  </Button>
+                              </Link>
+                          </div>
+                      </article>
                     );
                 })}
-            </PostList>
+          </PostList>
         );
     }
 }

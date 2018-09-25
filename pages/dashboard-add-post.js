@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { Router } from "../routes";
 import RichTextEditor from "react-rte";
 import { createPost } from "modules/post/PostActions";
+
 class DashboardAddPage extends React.Component {
     constructor(props) {
         super(props);
@@ -59,59 +60,59 @@ class DashboardAddPage extends React.Component {
         return (
             <Dashboard title="Add new post">
                 <Form onSubmit={this.handleSubmit}>
-                    <FormGroup>
+                <FormGroup>
                         <Label>Title</Label>
-                        <Input
-                            autoComplete="off"
-                            type="text"
-                            name="title"
+                    <Input
+                          autoComplete="off"
+                          type="text"
+                          name="title"
                             onChange={this.handleInputChange}
                             error={this.state.titleError}
                         />
                     </FormGroup>
 
-                    <FormGroup>
-                        <Label
-                            helper="Your post ID and friendly URL. 
+                <FormGroup>
+                      <Label
+                          helper="Your post ID and friendly URL. 
                             Use dashes to separte words [eg: my-post]. 
                             Leave it blank to auto generate slug"
                         >
                             Slug
                         </Label>
                         <Input
-                            autoComplete="off"
-                            type="text"
+                    autoComplete="off"
+                    type="text"
                             name="slug"
                             onChange={this.handleInputChange}
-                            error={this.state.slugError}
-                        />
+                    error={this.state.slugError}
+                  />
                     </FormGroup>
 
                     <FormGroup>
-                        <Label helper="Paste an image URL">Thumbnail</Label>
+                    <Label helper="Paste an image URL">Thumbnail</Label>
                         <Input
                             autoComplete="off"
-                            type="text"
-                            name="thumbnail"
-                            onChange={this.handleInputChange}
-                            error={this.state.thumbnailError}
-                        />
-                    </FormGroup>
+                        type="text"
+                        name="thumbnail"
+                        onChange={this.handleInputChange}
+                        error={this.state.thumbnailError}
+                      />
+                  </FormGroup>
 
                     <FormGroup>
                         <RichTextEditor
                             value={this.state.value}
                             onChange={this.handleEditorChange}
-                        />
-                    </FormGroup>
+                      />
+                  </FormGroup>
 
                     {error && <Alert color="danger">error: {error}</Alert>}
 
                     <Button border="rounded" size="sm" loading={loadingRequest}>
                         Add Post
-                    </Button>
-                </Form>
-            </Dashboard>
+                  </Button>
+              </Form>
+          </Dashboard>
         );
     }
 }

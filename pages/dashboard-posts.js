@@ -25,9 +25,9 @@ class DashboardPosts extends React.Component {
         return (
             <Dashboard
                 title="Posts"
-                action="Add new post"
+            action="Add new post"
                 actionUrl="/dashboard/add-post"
-            >
+          >
                 {posts ? (
                     Object.keys(posts).map(key => {
                         const post = posts[key];
@@ -41,15 +41,15 @@ class DashboardPosts extends React.Component {
                                 } at ${moment(post.createdAt).format("LL")}`}
                                 link={`/p/${key}`}
                                 key={key}
-                            />
+                          />
                         );
                     })
                 ) : (
                     <EmptyList action="/dashboard/add-post">
                         No posts created. Add new post
-                    </EmptyList>
+                  </EmptyList>
                 )}
-            </Dashboard>
+          </Dashboard>
         );
     }
 }
