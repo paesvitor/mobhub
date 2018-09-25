@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Link } from "routes";
 
 const Navbar = styled.div`
     ${({ theme }) => css`
@@ -9,6 +10,7 @@ const Navbar = styled.div`
         .navbar-logo {
             font-size: 1.5rem;
             font-weight: 700;
+            color: #fff;
             span {
                 font-weight: 300;
             }
@@ -18,10 +20,12 @@ const Navbar = styled.div`
 
 const comp = () => (
     <Navbar>
-        <div className="navbar-logo">
-            mob
-            <span>hub</span>
-        </div>
+        <Link route="/dashboard/home">
+            <a className="navbar-logo">
+                mob
+                <span>hub</span>
+            </a>
+        </Link>
     </Navbar>
 );
 

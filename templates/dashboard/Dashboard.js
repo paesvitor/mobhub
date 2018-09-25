@@ -10,6 +10,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import PageLoader from "components/page-loader";
 import ProgressBar from "components/progress-bar";
+import Loading from "components/page-loader/svg-loaders/tail-spin-blue.svg";
 
 const Dashboard = styled.div`
     display: flex;
@@ -48,6 +49,17 @@ const Content = styled.div`
         background-color: #fff;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         flex: 1;
+
+        .content-loading {
+            display: flex;
+            flex: 1;
+            height: 100%;
+            justify-content: center;
+
+            img {
+                width: 50px;
+            }
+        }
     }
 `;
 
@@ -56,7 +68,7 @@ class Template extends React.Component {
         super(props);
 
         this.state = {
-            loading: true
+            loadingPage: true
         };
     }
 
@@ -64,7 +76,7 @@ class Template extends React.Component {
         try {
             await firebase.auth().onAuthStateChanged(user => {
                 if (user) {
-                    this.setState({ loading: false });
+                    this.setState({ loadingPage: false });
                 } else {
                     this.props.router.replace("/dashboard/signin");
                 }
@@ -75,10 +87,16 @@ class Template extends React.Component {
     };
 
     render() {
-        const { title, action, actionUrl, children } = this.props;
-        const { loading } = this.state;
+        const {
+            title,
+            action,
+            actionUrl,
+            children,
+            loadingContent
+        } = this.props;
+        const { loadingPage } = this.state;
 
-        if (loading) {
+        if (loadingPage) {
             return <PageLoader />;
         }
 
@@ -105,7 +123,15 @@ class Template extends React.Component {
                             )}
                         </div>
 
-                        <div className="content-body">{children}</div>
+                        <div className="content-body">
+                            {loadingContent ? (
+                                <div className="content-loading">
+                                    <img src={Loading} />
+                                </div>
+                            ) : (
+                                children
+                            )}
+                        </div>
                     </Content>
                 </Wrapper>
             </Dashboard>

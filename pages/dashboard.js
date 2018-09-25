@@ -1,4 +1,35 @@
-import React, { Fragment } from "react";
+import React, { Component } from "react";
 import Dashboard from "templates/dashboard";
+import axios from "axios";
+export class componentName extends Component {
+    constructor(props) {
+        super(props);
 
-export default () => <Dashboard title="Dashboard Panel">Dashboard</Dashboard>;
+        this.state = {
+            data: {},
+            loading: true
+        };
+    }
+
+    fetchData = async () => {
+        try {
+            const { data } = await axios.get("/api/dashboard/home");
+
+            this.setState({ data, loading: false });
+        } catch (error) {
+            throw new Error(error);
+        }
+    };
+
+    componentWillMount = () => {
+        this.fetchData();
+    };
+
+    render() {
+        const { loading, data } = this.state;
+
+        return <Dashboard loadingContent={loading}>{data.message}</Dashboard>;
+    }
+}
+
+export default componentName;

@@ -5,7 +5,7 @@ import { theme } from "resources/theme";
 import { Provider } from "react-redux";
 import withRedux from "next-redux-wrapper";
 import makeStore from "../store";
-import { Router } from "../routes";
+import "isomorphic-unfetch";
 
 injectGlobal`
     @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
