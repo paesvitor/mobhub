@@ -10,12 +10,21 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 const { parse } = require("url");
 
+const mongoose = require("mongoose");
+
 const apiRoutes = require("./api/routes");
 const routes = require("../routes");
 const routesHandler = routes.getRequestHandler(app);
 
 app.prepare().then(() => {
     const server = express();
+
+    mongoose.connect(
+        "mongodb://127.0.0.1/mobhub",
+        () => {
+            console.log("Connected to mongodb");
+        }
+    );
 
     server.use(bodyParser.json());
     // server.use(
