@@ -1,11 +1,25 @@
 const User = require("../models/User");
+const JWT = require("jsonwebtoken");
+const { JWT_SECRET } = require("../config");
+
+signToken = user => {
+    return JWT.sign(
+        {
+            iss: JWT_SECRET,
+            sub: user._id,
+            iat: new Date().getTime(),
+            exp: new Date().setDate(new Date().getDate() + 1)
+        },
+        "mobhub"
+    );
+};
 
 module.exports = {
     signup: async (req, res, next) => {
         try {
             const { email, password } = req.body;
 
-            // Check if user exists
+            // User exists ? return 403 : continue
             const exists = await User.findOne({ email });
 
             if (exists) {
@@ -14,13 +28,18 @@ module.exports = {
                     .json({ error: "Email is already in use" });
             }
 
-            // If not, create user
+            // Create user && continue
             const user = new User({ email, password });
             const data = await user.save();
 
-            res.status(200).json(data);
+            // Generate user token
+            const token = signToken(user);
+
+            res.status(200).json({ token });
         } catch (error) {
             res.status(500).json(error);
         }
-    }
+    },
+
+    signin: async (req, res, next) => {}
 };
