@@ -4,23 +4,35 @@ import {
     MdBrightness1 as StatusIcon,
     MdOpenInNew as LinkIcon
 } from "react-icons/md";
-import { postsRef } from "modules/firebase";
 import ListCard from "components/ListCard";
 import EmptyList from "components/empty-list";
 import moment from "moment";
-import { deletePost } from "modules/post/PostActions";
+import {
+    deletePost,
+    getAllPosts as getAllPostsAction
+} from "modules/post/PostActions";
 import Swal from "sweetalert2";
 import { Router } from "routes";
+import { connect } from "react-redux";
 
 class DashboardPosts extends React.Component {
-    static async getInitialProps(ctx) {
-        const posts = await postsRef
-            .once("value")
-            .then(snapshot => snapshot.val());
-        return {
-            posts
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            posts: [],
+            loading: true
         };
     }
+
+    fetchData = () => {
+        const { hasLoadedPosts, getAllPosts } = this.props;
+        !hasLoadedPosts && getAllPosts();
+    };
+
+    componentDidMount = () => {
+        this.fetchData();
+    };
 
     handleDeletePost = (key, title) => {
         Swal({
@@ -44,30 +56,27 @@ class DashboardPosts extends React.Component {
     };
 
     render() {
-        const { posts } = this.props;
+        const { hasLoadedPosts, posts } = this.props;
 
         return (
             <Dashboard
+                loadingContent={!hasLoadedPosts}
                 title="Posts"
                 action="Add new post"
                 actionUrl="/dashboard/add-post"
             >
                 {posts ? (
-                    Object.keys(posts).map(key => {
-                        const post = posts[key];
+                    posts.map(post => {
                         return (
                             <ListCard
                                 thumbnail={post.thumbnail}
                                 preTitle={post.category}
                                 title={post.title}
                                 subtitle={`Created by: ${
-                                    post.createdBy
+                                    post.creator
                                 } at ${moment(post.createdAt).format("LL")}`}
-                                link={`/p/${key}`}
-                                key={key}
-                                deleteAction={() =>
-                                    this.handleDeletePost(key, post.title)
-                                }
+                                link={`/p/${post.slug}`}
+                                key={post.title}
                             />
                         );
                     })
@@ -81,4 +90,16 @@ class DashboardPosts extends React.Component {
     }
 }
 
-export default DashboardPosts;
+const mapStateToProps = ({ postStore }) => ({
+    posts: postStore.posts,
+    hasLoadedPosts: postStore.hasLoadedPosts
+});
+
+const mapDispatchToProps = dispatch => ({
+    getAllPosts: () => dispatch(getAllPostsAction())
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(DashboardPosts);

@@ -30,7 +30,6 @@ const Content = styled.div`
     margin: 1rem;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
     .content-header {
         display: flex;
         align-items: center;
@@ -49,6 +48,7 @@ const Content = styled.div`
         background-color: #fff;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         flex: 1;
+        overflow: scroll;
 
         .content-loading {
             display: flex;
