@@ -1,12 +1,11 @@
-import Post from "./PostModel";
-import { postsRef } from "../firebase";
+import axios from "config/axios";
 
 export const createPost = async data => {
-    const post = new Post(data);
     try {
-        return await postsRef.child(`${post.slug}`).set(post);
+        const response = await axios.post("/posts/create", { ...data });
+        return response;
     } catch (error) {
-        console.log(error);
+        return error;
     }
 };
 

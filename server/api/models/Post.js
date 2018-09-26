@@ -11,7 +11,7 @@ const postSchema = new Schema({
     lastEdit: { type: Date, default: Date.now },
     isDeleted: { type: Boolean, default: false },
     published: { type: Boolean, default: true },
-    creator: { type: String, required: true },
+    creator: { type: String, default: "not yet assigned" },
     title: { type: String, required: true },
     text: { type: String, required: true },
     slug: { type: String, default: uuidv1() },

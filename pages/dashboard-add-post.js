@@ -3,7 +3,6 @@ import Dashboard from "templates/dashboard";
 import { FormGroup, Input, Label, Form, Button, Alert } from "sagan-ui";
 import Swal from "sweetalert2";
 import { Router } from "../routes";
-// import RichTextEditor from "react-rte";
 import { createPost } from "modules/post/PostActions";
 
 class DashboardAddPage extends React.Component {
@@ -12,41 +11,27 @@ class DashboardAddPage extends React.Component {
 
         this.state = {
             error: null,
-            loadingRequest: false
-            // editorContent: RichTextEditor.createEmptyValue()
+            loadingRequest: false,
+            form: {}
         };
     }
 
-    handleInputChange = e => {
+    handleInputChange = event => {
         const {
             target: { value, name }
-        } = e;
-        const errorField = `${name}Error`;
-        this.setState({ [name]: value, [errorField]: null });
+        } = event;
+        this.setState(prevState => ({
+            form: { ...prevState.form, [name]: value }
+        }));
     };
 
-    handleEditorChange = editorContent => {
-        this.setState({ editorContent });
-    };
-
-    handleSubmit = async e => {
-        e.preventDefault();
+    handleSubmit = async event => {
+        event.preventDefault();
         this.setState({ error: null, loadingRequest: true });
-        const { title, slug, thumbnail } = this.state;
-        // const content = editorContent.value.toString("html");
-        const post = { title, slug, thumbnail };
+        const { form } = this.state;
 
         try {
-            createPost(post) &&
-                Swal({
-                    title: "Success!",
-                    type: "success",
-                    text: `Your post ${title} has been added.`,
-                    heightAuto: false,
-                    confirmButtonText: "View Posts"
-                }).then(res => {
-                    res.value && Router.push("/dashboard/posts");
-                });
+            createPost({ ...form }) && Router.push("/dashboard/posts");
         } catch (error) {
             this.setState({ error: error.message, loadingRequest: false });
         } finally {
@@ -63,11 +48,11 @@ class DashboardAddPage extends React.Component {
                     <FormGroup>
                         <Label>Title</Label>
                         <Input
+                            required
                             autoComplete="off"
                             type="text"
                             name="title"
                             onChange={this.handleInputChange}
-                            error={this.state.titleError}
                         />
                     </FormGroup>
 
@@ -84,7 +69,6 @@ class DashboardAddPage extends React.Component {
                             type="text"
                             name="slug"
                             onChange={this.handleInputChange}
-                            error={this.state.slugError}
                         />
                     </FormGroup>
 
@@ -95,7 +79,17 @@ class DashboardAddPage extends React.Component {
                             type="text"
                             name="thumbnail"
                             onChange={this.handleInputChange}
-                            error={this.state.thumbnailError}
+                        />
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label>Text</Label>
+                        <Input
+                            required
+                            autoComplete="off"
+                            type="text"
+                            name="text"
+                            onChange={this.handleInputChange}
                         />
                     </FormGroup>
 

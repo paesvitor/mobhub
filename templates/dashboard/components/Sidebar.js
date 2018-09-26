@@ -134,7 +134,12 @@ const comp = props => (
 
             <hr />
 
-            <a className="sidebar-link" onClick={() => signout()}>
+            <a
+                className="sidebar-link"
+                onClick={() => {
+                    signout(), Router.replace("/");
+                }}
+            >
                 <LogoutIcon />
                 <div className="sidebar-link__label">Logout</div>
             </a>
