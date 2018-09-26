@@ -12,7 +12,7 @@ const postController = require("./controllers/postController");
 const userController = require("./controllers/userController");
 
 router.route("/posts/create").post(passportJWT, postController.create);
-router.route("/posts").get(passportJWT, postController.getAll);
+router.route("/posts").get(postController.getAll);
 
 router
     .route("/users/signup")

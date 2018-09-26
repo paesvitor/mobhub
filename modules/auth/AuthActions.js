@@ -1,7 +1,8 @@
 import firebaseApp from "firebase/app";
 import "firebase/auth";
 import { whitelistRef } from "modules/firebase";
-import { SET_USER_TO_STORE, CLEAR_USER_FROM_STORE } from "./AuthConstants";
+import { signinService } from "./AuthServices";
+import { Router } from "routes";
 
 /**
  * Check if invitation code is valid
@@ -58,22 +59,18 @@ export const signup = (code, email, password) => () =>
  * @param {String} password
  * @returns {Object}
  */
-export const signin = (email, password) => async dispatch => {
+export const signin = async (email, password) => {
     try {
-        const user = await firebaseApp
-            .auth()
-            .setPersistence(firebaseApp.auth.Auth.Persistence.SESSION)
-            .then(res => firebaseApp
-                .auth()
-                .signInWithEmailAndPassword(email, password));
-        return true;
+        const auth = await signinService(email, password);
+        await sessionStorage.setItem("access_token", auth.data.access_token);
+        return auth;
     } catch (error) {
         throw new Error(error);
     }
 };
 
 /**
- * Signout user from app
+ * Signout user from app and redirects to login
  * @returns {void}
  */
-export const signout = () => firebaseApp.auth().signOut();
+export const signout = () => sessionStorage.clear();

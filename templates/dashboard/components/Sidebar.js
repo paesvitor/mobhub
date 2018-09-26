@@ -12,8 +12,7 @@ import {
 } from "react-icons/md";
 import { Button } from "sagan-ui";
 import { Link, Router } from "routes";
-import { signout as signoutAction } from "modules/auth/AuthActions";
-import { connect } from "react-redux";
+import { signout } from "modules/auth/AuthActions";
 
 const Sidebar = styled.div`
     ${({ theme }) => css`
@@ -135,13 +134,7 @@ const comp = props => (
 
             <hr />
 
-            <a
-                className="sidebar-link"
-                onClick={() => {
-                    props.signout();
-                    Router.push("/");
-                }}
-            >
+            <a className="sidebar-link" onClick={() => signout()}>
                 <LogoutIcon />
                 <div className="sidebar-link__label">Logout</div>
             </a>
@@ -156,11 +149,4 @@ const comp = props => (
     </Sidebar>
 );
 
-const mapDispatchToProps = dispatch => ({
-    signout: () => dispatch(signoutAction())
-});
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(comp);
+export default comp;

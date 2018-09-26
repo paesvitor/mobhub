@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Dashboard from "templates/dashboard";
-import axios from "axios";
 export class componentName extends Component {
     constructor(props) {
         super(props);
@@ -11,24 +10,22 @@ export class componentName extends Component {
         };
     }
 
-    fetchData = async () => {
-        try {
-            const { data } = await axios.get("/api/dashboard/home");
+    // fetchData = async () => {
+    //     try {
+    //         const { data } = await axios.get("/api/dashboard/home");
 
-            this.setState({ data, loading: false });
-        } catch (error) {
-            throw new Error(error);
-        }
-    };
+    //         this.setState({ data, loading: false });
+    //     } catch (error) {
+    //         throw new Error(error);
+    //     }
+    // };
 
-    componentWillMount = () => {
-        this.fetchData();
-    };
+    // componentWillMount = () => {
+    //     this.fetchData();
+    // };
 
     render() {
-        const { loading, data } = this.state;
-
-        return <Dashboard loadingContent={loading}>{data.message}</Dashboard>;
+        return <Dashboard>oie</Dashboard>;
     }
 }
 

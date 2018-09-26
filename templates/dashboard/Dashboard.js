@@ -72,18 +72,23 @@ class Template extends React.Component {
         };
     }
 
-    componentWillMount = async () => {
+    checkAccessToken = async () => {
         try {
-            await firebase.auth().onAuthStateChanged(user => {
-                if (user) {
-                    this.setState({ loadingPage: false });
-                } else {
-                    this.props.router.replace("/dashboard/signin");
-                }
-            });
+            const { router } = this.props;
+            const token = await sessionStorage.getItem("access_token");
+
+            if (!token) {
+                router.replace("/dashboard/signin");
+            } else {
+                this.setState({ loadingPage: false });
+            }
         } catch (error) {
             console.log(error);
         }
+    };
+
+    componentWillMount = () => {
+        this.checkAccessToken();
     };
 
     render() {

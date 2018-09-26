@@ -41,7 +41,9 @@ passport.use(
                 const user = await User.findOne({ email });
                 // If not, handle it
                 if (!user) {
-                    return done(null, false);
+                    return done(null, false, {
+                        message: "This user does not exists"
+                    });
                 }
                 // Check if password is correct
                 const isValidPassword = await user.isValidPassword(password);

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Input, FormGroup, Alert, Label } from "sagan-ui";
 import { connect } from "react-redux";
-import { signin as signinAction } from "modules/auth/AuthActions";
+import { signin } from "modules/auth/AuthActions";
 import PropTypes from "prop-types";
 import FormPage from "templates/form-page";
 import { Link, Router } from "routes";
@@ -24,25 +24,12 @@ export class SigninScreen extends Component {
         this.setState({ [name]: value });
     };
 
-    validateFields = () => {
-        const { email, password } = this.state;
-        return email && password;
-    };
-
     handleSubmit = async e => {
         e.preventDefault();
-        const { email, password } = this.state;
-        const { signin, history } = this.props;
-
         this.setState({ error: null, loadingRequest: true });
-
+        const { email, password } = this.state;
         try {
-            if (this.validateFields()) {
-                (await signin(email, password)) &&
-                    Router.push("/dashboard/home");
-            } else {
-                throw new Error("You must fill in required fields");
-            }
+            (await signin(email, password)) && Router.push("/dashboard/home");
         } catch (error) {
             this.setState({ error: error.message, loadingRequest: false });
         }
@@ -61,6 +48,7 @@ export class SigninScreen extends Component {
                         <Label htmlFor="email">Email</Label>
                         <Input
                             id="email"
+                            required
                             name="email"
                             onChange={this.handleInputChange}
                             type="email"
@@ -72,6 +60,7 @@ export class SigninScreen extends Component {
                         <Label htmlFor="password">Password</Label>
                         <Input
                             id="password"
+                            required
                             name="password"
                             onChange={this.handleInputChange}
                             type="password"
@@ -102,16 +91,6 @@ export class SigninScreen extends Component {
     }
 }
 
-SigninScreen.propTypes = {
-    signin: PropTypes.func,
-    history: PropTypes.object
-};
+SigninScreen.propTypes = {};
 
-const mapDispatchToProps = dispatch => ({
-    signin: (email, password) => dispatch(signinAction(email, password))
-});
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(SigninScreen);
+export default SigninScreen;
