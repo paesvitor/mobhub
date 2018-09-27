@@ -1,19 +1,32 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const uuid = require("uuid/v1");
 const { Schema } = mongoose;
 
 mongoose.Promise = global.Promise;
 
 const userSchema = new Schema({
+    createdAt: {
+        type: String,
+        default: Date.now()
+    },
     email: {
         type: String,
         required: true,
         unique: true,
         lowercase: true
     },
+    displayName: {
+        type: String,
+        required: true
+    },
     password: {
         type: String,
         required: true
+    },
+    admin: {
+        type: Boolean,
+        default: false
     }
 });
 

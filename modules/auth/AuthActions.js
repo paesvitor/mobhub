@@ -1,7 +1,7 @@
 import firebaseApp from "firebase/app";
 import "firebase/auth";
 import { whitelistRef } from "modules/firebase";
-import { signinService } from "./AuthServices";
+import { signinService, signupService } from "./AuthServices";
 import { Router } from "routes";
 
 /**
@@ -38,21 +38,14 @@ const invalidateCode = code => {
  * @param {String} email
  * @param {String} password
  */
-export const signup = (code, email, password) => () =>
-    new Promise(async (resolve, reject) => {
-        if (await codeIsValid(code, email)) {
-            firebaseApp
-                .auth()
-                .createUserWithEmailAndPassword(email, password)
-                .then(success => {
-                    invalidateCode(code);
-                    resolve(success);
-                })
-                .catch(error => reject(error));
-        } else {
-            reject(new Error("Invalid invitation code"));
-        }
-    });
+export const signup = async (displayName, email, password) => {
+    try {
+        const auth = await signupService(displayName, email, password);
+        return auth;
+    } catch (error) {
+        throw new Error(error);
+    }
+};
 /**
  * Signin user to app
  * @param {String} email

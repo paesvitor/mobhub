@@ -11,9 +11,13 @@ const postSchema = new Schema({
     lastEdit: { type: Date, default: Date.now },
     isDeleted: { type: Boolean, default: false },
     published: { type: Boolean, default: true },
-    category: { type: String, default: "uncategorized yet" },
-    creator: { type: String, default: "not yet assigned" },
-    thumbnail: { type: String, default: "empty" },
+    category: { type: String, default: "uncategorized" },
+    creator: { type: String, default: "no creator assigned" },
+    thumbnail: {
+        type: String,
+        default:
+            "https://img-aws.ehowcdn.com/877x500p/s3-us-west-1.amazonaws.com/contentlab.studiod/getty/f24b4a7bf9f24d1ba5f899339e6949f3"
+    },
     title: { type: String, required: true },
     text: { type: String, required: true },
     slug: { type: String, default: uuidv1() }

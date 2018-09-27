@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Whitelist = require("../models/Whitelist");
 const JWT = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
 
@@ -17,7 +18,16 @@ signToken = user => {
 module.exports = {
     signup: async (req, res, next) => {
         try {
-            const { email, password } = req.body;
+            const { email, password, displayName } = req.body;
+
+            const whitelisted = await Whitelist.findOne({ email });
+
+            if (!whitelisted) {
+                return res.status(403).json({
+                    error:
+                        "This email is not whitelisted. Contact system admin."
+                });
+            }
 
             // User exists ? return 403 : continue
             const exists = await User.findOne({ email });
@@ -29,13 +39,10 @@ module.exports = {
             }
 
             // Create user && continue
-            const user = new User({ email, password });
+            const user = new User({ email, password, displayName });
             const data = await user.save();
 
-            // Generate user token
-            const access_token = signToken(user);
-
-            res.status(200).json({ access_token });
+            res.status(200).json(data);
         } catch (error) {
             res.status(500).json(error);
         }

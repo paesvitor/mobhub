@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Input, FormGroup, Alert, Label, Form } from "sagan-ui";
 import { connect } from "react-redux";
-import { signup as signupAction } from "modules/auth/AuthActions";
+import { signup } from "modules/auth/AuthActions";
 import PropTypes from "prop-types";
 import FormPage from "templates/form-page";
 import { Link } from "routes";
@@ -29,8 +29,8 @@ export class SignupScreen extends Component {
     };
 
     validateEmptyFields = () => {
-        const { email, password, passwordConfirm, code } = this.state;
-        const fields = { email, password, passwordConfirm, code };
+        const { email, password, passwordConfirm, displayName } = this.state;
+        const fields = { email, password, passwordConfirm, displayName };
         let hasErrors = false;
         Object.keys(fields).map(key => {
             if (!fields[key]) {
@@ -54,12 +54,11 @@ export class SignupScreen extends Component {
     handleSubmit = async e => {
         e.preventDefault();
         this.setState({ error: null, loadingRequest: true });
-        const { signup } = this.props;
-        const { email, password, code } = this.state;
+        const { email, password, displayName } = this.state;
 
         try {
             this.validateForm() &&
-                (await signup(code, email, password)) &&
+                (await signup(displayName, email, password)) &&
                 this.setState({ success: true, loadingRequest: false });
         } catch (error) {
             this.setState({ error: error.message, loadingRequest: false });
@@ -77,13 +76,12 @@ export class SignupScreen extends Component {
                     <h2 className="text-center">Signup</h2>
                     <hr />
                     <FormGroup>
-                        <Label helper="6 numbers">Invite Code</Label>
+                        <Label>Display Name</Label>
                         <Input
-                            name="code"
+                            name="displayName"
                             onChange={this.handleInputChange}
-                            type="number"
-                            placeholder="000000"
-                            error={this.state.codeError}
+                            type="text"
+                            error={this.state.displayNameError}
                         />
                     </FormGroup>
 
@@ -158,16 +156,4 @@ export class SignupScreen extends Component {
     }
 }
 
-SignupScreen.propTypes = {
-    signup: PropTypes.func
-};
-
-const mapDispatchToProps = dispatch => ({
-    signup: (code, email, password) =>
-        dispatch(signupAction(code, email, password))
-});
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(SignupScreen);
+export default SignupScreen;
