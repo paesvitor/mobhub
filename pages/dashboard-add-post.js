@@ -1,11 +1,10 @@
 import React from "react";
 import Dashboard from "templates/dashboard";
 import { FormGroup, Input, Label, Form, Button, Alert } from "sagan-ui";
-import Swal from "sweetalert2";
 import { Router } from "../routes";
 import { createPost } from "modules/post/PostActions";
 
-class DashboardAddPage extends React.Component {
+class DashboardAddPost extends React.Component {
     constructor(props) {
         super(props);
 
@@ -104,4 +103,4 @@ class DashboardAddPage extends React.Component {
     }
 }
 
-export default DashboardAddPage;
+export default DashboardAddPost;

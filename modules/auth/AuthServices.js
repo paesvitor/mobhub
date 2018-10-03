@@ -12,6 +12,7 @@ export const signinService = async (email, password) => {
         return response;
     } catch (error) {
         console.log(error);
+        throw new Error(error);
     }
 };
 
@@ -27,6 +28,7 @@ export const signupService = async (displayName, email, password) => {
         );
         return response;
     } catch (error) {
-        console.log(error);
+        console.log({ error });
+        throw new Error(error);
     }
 };

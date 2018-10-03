@@ -1,12 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import Sidebar from "./components/Sidebar";
-import Navbar from "./components/Navbar";
 import { Button } from "sagan-ui";
 import { Link } from "../../routes";
-import { connect } from "react-redux";
 import { withRouter } from "next/router";
-import firebase from "firebase/app";
 import "firebase/auth";
 import PageLoader from "components/page-loader";
 import ProgressBar from "components/progress-bar";
@@ -26,8 +23,8 @@ const Wrapper = styled.div`
 
 const Content = styled.div`
     flex: 1;
-    padding: 1rem;
-    margin: 1rem;
+    /* padding: 1rem; */
+    /* margin: 1rem; */
     display: flex;
     flex-direction: column;
     .content-header {
@@ -87,8 +84,8 @@ class Template extends React.Component {
         }
     };
 
-    componentWillMount = () => {
-        this.checkAccessToken();
+    componentDidMount = async () => {
+        await this.checkAccessToken();
     };
 
     render() {
@@ -97,7 +94,8 @@ class Template extends React.Component {
             action,
             actionUrl,
             children,
-            loadingContent
+            loadingContent,
+            router
         } = this.props;
         const { loadingPage } = this.state;
 
@@ -107,10 +105,9 @@ class Template extends React.Component {
 
         return (
             <Dashboard>
-                <Navbar />
                 <ProgressBar />
                 <Wrapper>
-                    <Sidebar />
+                    <Sidebar activeUrl={router.asPath} />
                     <Content>
                         <div className="content-header">
                             <h2>{title}</h2>
@@ -144,8 +141,4 @@ class Template extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    authStore: state.auth
-});
-
-export default withRouter(connect(mapStateToProps)(Template));
+export default withRouter(Template);

@@ -23,6 +23,18 @@ export const getAllPosts = () => async dispatch => {
     }
 };
 
+export const getPost = async slug => {
+    try {
+        const response = await axios.get(`/posts/get/${slug}`);
+
+        console.log(response);
+        const post = response.data;
+        return post;
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 export const deletePost = async id => {
     try {
         return await postsRef.child(`${id}`).remove();

@@ -28,8 +28,8 @@ postController.getAll = (req, res) => {
 };
 
 postController.get = (req, res) => {
-    const { id } = req.params;
-    Post.find({ _id: id })
+    const { slug } = req.params;
+    Post.findOne({ slug })
         .then(result => res.status(200).json(result))
         .catch(error => res.status(500).json(error));
 };

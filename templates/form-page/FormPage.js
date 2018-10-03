@@ -7,7 +7,9 @@ const FormPage = styled.div`
     justify-content: center;
     flex-direction: column;
     padding: 1rem;
-    background-image: linear-gradient(#2979ff, #651fff);
+    background-image: ${({ theme }) =>
+        `linear-gradient(${theme.primaryColor ||
+            "#000"}, ${theme.secondaryColor || "#000"});`};
     align-items: center;
 
     &:after {

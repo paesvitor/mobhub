@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { postsRef } from "modules/firebase";
+import { getPost } from "modules/post/PostActions";
 import styled, { css } from "styled-components";
+import axios from "axios";
 
 const Post = styled.div`
     background-color: #e6ecf0;
@@ -40,35 +41,55 @@ const Post = styled.div`
 `;
 
 export class AppSinglePost extends Component {
-    static async getInitialProps({ query }) {
-        try {
-            const post = await postsRef
-                .child(`${query.slug}`)
-                .once("value")
-                .then(snap => snap.val());
-            return { post };
-        } catch (error) {
-            console.log(error);
-        }
+    static async getInitialProps(context) {
+        const { query } = context || {};
+
+        return { query };
     }
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loading: true
+        };
+    }
+
+    fetchData = async () => {
+        try {
+            const { slug } = this.props.query;
+            const post = await getPost(slug);
+            this.setState({ post, loading: false });
+        } catch (error) {
+            this.setState({ error });
+        }
+    };
+
+    componentWillMount = () => {
+        this.fetchData();
+    };
+
     render() {
-        const { post } = this.props;
+        const { post, loading } = this.state;
+
+        if (loading) {
+            return <div>Loading</div>;
+        }
 
         return (
             <Post>
-            <div
-                className="post-cover"
+                <div
+                    className="post-cover"
                     style={{ backgroundImage: `url(${post.thumbnail})` }}
-              >
+                >
                     <div className="post-cover__title">{post.title}</div>
-              </div>
+                </div>
 
                 <div
                     className="post-content"
-                    dangerouslySetInnerHTML={{ __html: post.content }}
-              />
-          </Post>
+                    dangerouslySetInnerHTML={{ __html: post.text }}
+                />
+            </Post>
         );
     }
 }

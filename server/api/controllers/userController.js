@@ -24,7 +24,7 @@ module.exports = {
 
             if (!whitelisted) {
                 return res.status(403).json({
-                    error:
+                    message:
                         "This email is not whitelisted. Contact system admin."
                 });
             }
@@ -35,7 +35,7 @@ module.exports = {
             if (exists) {
                 return res
                     .status(403)
-                    .json({ error: "Email is already in use" });
+                    .json({ message: "Email is already in use" });
             }
 
             // Create user && continue
@@ -53,7 +53,9 @@ module.exports = {
             const access_token = await signToken(req.user);
             res.status(200).json({ access_token });
         } catch (error) {
-            rest.status(500).json(error);
+            rest.status(500).json({
+                message: "hahahahahha"
+            });
         }
     }
 };

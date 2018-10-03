@@ -9,15 +9,16 @@ import "isomorphic-unfetch";
 
 injectGlobal`
     @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700');
+    @import url('https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900');
     * { padding: 0; margin: 0}
-    html {font-size: 14px}
+    html {font-size: 15px}
     body { font-size: 1rem}
     a {text-decoration: none}
 
     #__next, html, body {
         height: 100% !important;
         margin: 0;
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Nunito', sans-serif;
         padding-right: 0 !important;
         background-color: #e6ecf0;
     }

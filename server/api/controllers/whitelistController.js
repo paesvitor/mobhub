@@ -29,5 +29,11 @@ module.exports = {
         } catch (error) {
             res.status(500).json(error);
         }
+    },
+
+    getAll: async (req, res) => {
+        Whitelist.find({})
+            .then(whitelist => res.status(200).json(whitelist))
+            .catch(error => res.status(500).json(error));
     }
 };

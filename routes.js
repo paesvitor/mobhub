@@ -12,6 +12,11 @@ module.exports = routes()
     .add("dashboard-users", "/dashboard/users", "dashboard-users")
     .add("dashboard-profile", "/dashboard/profile", "dashboard-profile")
     .add("dashboard-add-user", "/dashboard/add-user", "dashboard-add-user")
+    .add(
+        "dashboard-configuration",
+        "/dashboard/configuration",
+        "dashboard-configuration"
+    )
     // App
     .add({
         name: "app-single-page",

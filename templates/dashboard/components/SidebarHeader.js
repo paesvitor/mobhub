@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { Link } from "routes";
 
-const Navbar = styled.div`
+const SidebarHeader = styled.div`
     ${({ theme }) => css`
         padding: 1.3rem 1rem;
         background-color: ${theme.primaryColor};
@@ -18,15 +18,13 @@ const Navbar = styled.div`
     `};
 `;
 
-const comp = () => (
-    <Navbar>
+export default () => (
+    <SidebarHeader>
         <Link route="/dashboard/home">
             <a className="navbar-logo">
                 mob
                 <span>hub</span>
             </a>
         </Link>
-    </Navbar>
+    </SidebarHeader>
 );
-
-export default comp;

@@ -13,6 +13,7 @@ import {
 import { Button } from "sagan-ui";
 import { Link, Router } from "routes";
 import { signout } from "modules/auth/AuthActions";
+import SidebarHeader from "./SidebarHeader";
 
 const Sidebar = styled.div`
     ${({ theme }) => css`
@@ -43,7 +44,7 @@ const Sidebar = styled.div`
             align-items: center;
             cursor: pointer;
             text-transform: initial;
-            font-weight: 400;
+            font-weight: 600;
             color: #838f94;
 
             .sidebar-link__label {
@@ -62,10 +63,12 @@ const Sidebar = styled.div`
                 border-color: ${theme.primaryColor};
                 color: #fff;
             }
+        }
 
-            &:active {
-                background-color: rgba(255, 255, 255, 0.1);
-            }
+        .active {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: ${theme.primaryColor};
+            color: #fff;
         }
 
         .app-version {
@@ -88,70 +91,74 @@ const Sidebar = styled.div`
     `};
 `;
 
-const comp = props => (
-    <Sidebar>
-        <div className="sidebar-header">
-            <Link route="/dashboard/add-post">
-                <Button fluid size="sm" border="rounded" color="secondary">
-                    add post
-                </Button>
-            </Link>
-        </div>
+const menuOptions = [
+    { route: "/dashboard/pages", name: "Pages", icon: <PageIcon /> },
+    { route: "/dashboard/posts", name: "Posts", icon: <PageIcon /> },
+    { route: "/dashboard/profile", name: "Profile", icon: <ProfileIcon /> },
+    { route: "/dashboard/users", name: "Users", icon: <UserIcon /> },
+    {
+        route: "/dashboard/configuration",
+        name: "Configuration",
+        icon: <ConfigIcon />
+    }
+];
 
-        <div className="sidebar-menu">
-            <Link route="/dashboard/pages">
-                <a className="sidebar-link">
-                    <PageIcon />
-                    <div className="sidebar-link__label">Pages</div>
-                </a>
-            </Link>
+const Component = ({ activeUrl }) => {
+    return (
+        <Sidebar>
+            <SidebarHeader />
 
-            <Link route="/dashboard/posts">
-                <a className="sidebar-link">
-                    <PageIcon />
-                    <div className="sidebar-link__label">Posts</div>
-                </a>
-            </Link>
-
-            <Link route="/dashboard/profile">
-                <a className="sidebar-link">
-                    <ProfileIcon />
-                    <div className="sidebar-link__label">My Profile</div>
-                </a>
-            </Link>
-
-            <Link route="/dashboard/users">
-                <a className="sidebar-link">
-                    <UserIcon />
-                    <div className="sidebar-link__label">Users</div>
-                </a>
-            </Link>
-
-            <a className="sidebar-link">
-                <ConfigIcon />
-                <div className="sidebar-link__label">Configuration</div>
-            </a>
-
-            <hr />
-
-            <a
-                className="sidebar-link"
-                onClick={() => {
-                    signout(), Router.replace("/");
-                }}
-            >
-                <LogoutIcon />
-                <div className="sidebar-link__label">Logout</div>
-            </a>
-        </div>
-
-        <div className="sidebar-footer">
-            <div className="app-version">
-                <VersionIcon />
-                version: alpha 0.0.1
+            <div className="sidebar-header">
+                <Link route="/dashboard/add-post">
+                    <Button
+                        fluid
+                        size="sm"
+                        border="rounded"
+                        color="primary"
+                        type="light"
+                    >
+                        add post
+                    </Button>
+                </Link>
             </div>
-        </div>
-    </Sidebar>
-);
 
-export default comp;
+            <div className="sidebar-menu">
+                {menuOptions.map(menuOption => (
+                    <Link key={menuOption.route} route={menuOption.route}>
+                        <a
+                            className={`sidebar-link ${
+                                activeUrl === menuOption.route ? "active" : ""
+                            }`}
+                        >
+                            {menuOption.icon}
+                            <div className="sidebar-link__label">
+                                {menuOption.name}
+                            </div>
+                        </a>
+                    </Link>
+                ))}
+
+                <hr />
+
+                <a
+                    className="sidebar-link"
+                    onClick={() => {
+                        signout(), Router.replace("/");
+                    }}
+                >
+                    <LogoutIcon />
+                    <div className="sidebar-link__label">Logout</div>
+                </a>
+            </div>
+
+            <div className="sidebar-footer">
+                <div className="app-version">
+                    <VersionIcon />
+                    version: alpha 0.0.1
+                </div>
+            </div>
+        </Sidebar>
+    );
+};
+
+export default Component;

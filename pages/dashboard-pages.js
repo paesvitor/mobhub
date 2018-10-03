@@ -8,7 +8,7 @@ import { pagesRef } from "modules/firebase";
 import ListCard from "components/ListCard";
 import EmptyList from "components/empty-list";
 
-class Pages extends React.Component {
+class DashboardPages extends React.Component {
     static async getInitialProps(ctx) {
         const pages = await pagesRef
             .once("value")
@@ -23,10 +23,10 @@ class Pages extends React.Component {
 
         return (
             <Dashboard
-            title="Pages"
+                title="Pages"
                 action="Add new page"
                 actionUrl="/dashboard/add-page"
-          >
+            >
                 {pages ? (
                     Object.keys(pages).map(key => (
                         <ListCard item={pages[key]} key={key} slug={key} />
@@ -34,11 +34,11 @@ class Pages extends React.Component {
                 ) : (
                     <EmptyList action="/dashboard/add-page">
                         No pages created. Add new page
-                  </EmptyList>
+                    </EmptyList>
                 )}
-          </Dashboard>
+            </Dashboard>
         );
     }
 }
 
-export default Pages;
+export default DashboardPages;
